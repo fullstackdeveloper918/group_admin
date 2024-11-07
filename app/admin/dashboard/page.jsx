@@ -2,6 +2,7 @@ import Chart from "../../../components/Shared/Chart";
 import Image from "next/image";
 import React from "react";
 import { rightbarData } from "../../../lib/data";
+import { transaction_data } from "../../../lib/data";
 
 const dashboard = () => {
   return (
@@ -25,7 +26,7 @@ const dashboard = () => {
                 </tr>
               </thead>
               <tbody>
-                {transaction_data.map((item) => (
+                {transaction_data?.map((item) => (
                   <>
                     <tr>
                       <td className="p-5">
@@ -88,7 +89,7 @@ const dashboard = () => {
                       possimus.
                     </p>
                     <button className="p-3 flex items-center gap-3 w-max bg-[#5d57c9] text-white border-none rounded cursor-pointer">
-                      <MdPlayCircleFilled />
+                      {/* <MdPlayCircleFilled /> */}
                       Watch
                     </button>
                   </div>

@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 import { fetchCard } from "@/lib/actions";
 let page = 2;
 
-function LoadMore() {
+const  LoadMore=()=> {
   const { ref, inView } = useInView();
 
   const [data, setData] = useState([]);
@@ -22,7 +22,8 @@ function LoadMore() {
         fetchCard(page).then((res) => {
           setData([...data, ...res]);
           page++;
-        });
+        }
+      );
 
         setIsLoading(false);
       }, delay);
