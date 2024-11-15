@@ -29,6 +29,11 @@ const menuItems = [
         icon: <MdSupervisedUserCircle />,
       },
       {
+        title: "Category",
+        path: "/admin/dashboard/category",
+        icon: <MdShoppingBag />,
+      },
+      {
         title: "Cards",
         path: "/admin/dashboard/cards",
         icon: <MdShoppingBag />,
