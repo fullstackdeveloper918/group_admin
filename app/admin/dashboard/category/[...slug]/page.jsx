@@ -40,10 +40,7 @@ const Page = () => {
   const fetchCollectionData = async (id) => {
     try {
       const response = await axios.get(`https://magshopify.goaideme.com/card/collection/${id}`);
-      const data = response.data;
-
-      console.log(data, 'data')
-
+      const data = response?.data;
       setValues({
         collectionUri: data.collection_uri,
         collectionType: data.collection_title,
@@ -58,6 +55,8 @@ const Page = () => {
       console.error("Error fetching collection data:", error);
     }
   };
+
+  
 
   const closeModal = () => {
     setIsModalOpen(false);
