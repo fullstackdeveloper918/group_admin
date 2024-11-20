@@ -1,7 +1,3 @@
-
-
-
-
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useState, useEffect } from "react";
@@ -14,9 +10,6 @@ const Page = () => {
   // const params = useParams();
   const { slug } = useParams();
   const CategoryId = Array.isArray(slug) ? slug[slug.length - 1] : slug;
-  
- 
-  // const collectionId = searchParams.get("id"); 
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [values, setValues] = useState({
@@ -34,10 +27,13 @@ const Page = () => {
   const [imagePreviews, setImagePreviews] = useState([]);
   const [editMode, setEditMode] = useState(false); 
 
+
   useEffect(() => {
-    if (CategoryId) {
+    if (CategoryId !== "add") {
       setEditMode(true); 
       fetchCollectionData(CategoryId);
+    } else{
+      setEditMode(false)
     }
   }, [CategoryId]);
 
@@ -270,7 +266,7 @@ const Page = () => {
             Cancel
           </Button>
           <Button type="submit" className="bg-blue-500 text-white">
-            {editMode ? "Update" : "Save"}
+            {editMode ? "Update" : "Add"}
           </Button>
         </div>
       </form>
