@@ -12,7 +12,7 @@ const ProductCard = ({ item }) => {
 
 
   const handleDelete = async (id) => {
-
+    
     const data  = {
       card_uuid: id
     }
@@ -25,7 +25,7 @@ const ProductCard = ({ item }) => {
   
       
       const response = await fetch(`https://magshopify.goaideme.com/card/delete-card`, {
-        method: "DELETE", 
+        method: "POST", 
         headers: {
           "Content-Type": "application/json", 
         },
@@ -38,6 +38,7 @@ const ProductCard = ({ item }) => {
         console.log('eneterd')
         const data = await response.json();
         toast.success("Collection deleted successfully!");
+        window.location.reload();
         
       } else {
         // const errorData = await response.json();
@@ -69,7 +70,7 @@ const ProductCard = ({ item }) => {
       </div>
       <div className="px-4 space-y-3 pb-6">
         <div className="space-y-1">
-        <button className="bg-red-600 text-white py-2 px-3 rounded-sm" onClick={handleDelete}>Delete</button>
+        <button className="bg-red-600 text-white py-2 px-3 rounded-sm" onClick={()=>handleDelete(item?.uuid)}>Delete</button>
           <p className="text-sm text-gray-500">{item?.title}</p>
 
           <Image alt="Stars" src="/svg/stars.svg" width={100} height={100} />

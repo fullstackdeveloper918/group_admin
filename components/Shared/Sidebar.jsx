@@ -45,41 +45,41 @@ const menuItems = [
       },
     ],
   },
-  {
-    title: "Analytics",
-    list: [
-      {
-        title: "Revenue",
-        path: "/admin/dashboard/revenue",
-        icon: <MdWork />,
-      },
-      {
-        title: "Reports",
-        path: "/admin/dashboard/reports",
-        icon: <MdAnalytics />,
-      },
-      {
-        title: "Teams",
-        path: "/admin/dashboard/teams",
-        icon: <MdPeople />,
-      },
-    ],
-  },
-  {
-    title: "User",
-    list: [
-      {
-        title: "Settings",
-        path: "/admin/dashboard/settings",
-        icon: <MdOutlineSettings />,
-      },
-      {
-        title: "Help",
-        path: "/admin/dashboard/help",
-        icon: <MdHelpCenter />,
-      },
-    ],
-  },
+  // {
+  //   title: "Analytics",
+  //   list: [
+  //     {
+  //       title: "Revenue",
+  //       path: "/admin/dashboard/revenue",
+  //       icon: <MdWork />,
+  //     },
+  //     {
+  //       title: "Reports",
+  //       path: "/admin/dashboard/reports",
+  //       icon: <MdAnalytics />,
+  //     },
+  //     {
+  //       title: "Teams",
+  //       path: "/admin/dashboard/teams",
+  //       icon: <MdPeople />,
+  //     },
+  //   ],
+  // },
+  // {
+  //   title: "User",
+  //   list: [
+  //     {
+  //       title: "Settings",
+  //       path: "/admin/dashboard/settings",
+  //       icon: <MdOutlineSettings />,
+  //     },
+  //     {
+  //       title: "Help",
+  //       path: "/admin/dashboard/help",
+  //       icon: <MdHelpCenter />,
+  //     },
+  //   ],
+  // },
 ];
 
 const Sidebar = async () => {

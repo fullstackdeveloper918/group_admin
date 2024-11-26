@@ -16,13 +16,21 @@ const CategoryCard = ({ item }) => {
 
   const handleDelete = async (id) => {
     
+    
     const data = {
       collection_uuid: id
     }
+    
 
    
     try {
-      const response = await axios.delete(
+
+      const confirmDelete = window.confirm("Are you sure you want to delete this category?");
+      if (!confirmDelete) {
+        return; 
+      }
+
+      const response = await axios.post(
         "https://magshopify.goaideme.com/card/delete-collection",
         data,
         {
@@ -33,6 +41,7 @@ const CategoryCard = ({ item }) => {
       );
       if (response) {
         toast.success("Card deleted successfully");
+        window.location.reload()
        
       }
     } catch (error) {
