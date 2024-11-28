@@ -5,17 +5,16 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
-import { Form } from "react-hook-form";
+import { MdDelete } from "react-icons/md";
 
 const Page = () => {
     
     const [isModalOpen, setIsModalOpen] = useState(false);
     const router = useRouter()
-    // const [data, setData] = useState([]);
     const [price,setPrice]=useState(0);
     const [state,setState]=useState();
-    const [card_bundle_description,setCard_bundle_description] = useState([]);
-  const [values, setValues] = useState({
+    const [desc, setDesc] = useState([]);
+    const [values, setValues] = useState({
     number_of_cards: 0,
     discount: 0,
     currency_type: "",
@@ -28,55 +27,40 @@ const Page = () => {
     currency_type: "",
 
   });
-//   const [imagePreviews, setImagePreviews] = useState([]); 
-// console.log(price,"pricepriceprice");
-// console.log(state,"statestate");
 
-//   useEffect(() => {
-   
-//     const fetchData = async () => {
-//       try {
-//         const response = await fetch("https://magshopify.goaideme.com/card/bundle-list");
-//         if (!response.ok) {
-//           throw new Error("Failed to fetch data");
-//         }
-//         const result = await response.json(); 
-
-//         console.log(result);
-        
-   
-//         setData(result?.data); 
-//       } catch (err) {
-//         console.log(err)
-//       } 
-//     };
-
-//     fetchData(); 
-//   }, []); 
-
-
-const [desc, setDesc] = useState([])
+  const [card_bundle_description, setCard_bundle_description] = useState([])
   const [input, setInput] = useState('')
   const [edit, setEditing]= useState(null)
   const [edittext , setEditingText] = useState('')
+
 
   const InputHandler = (e)=>{
     setInput(e.target.value)
   }
 
-  const SubmitHandler = ()=>{
-    setDesc([...desc, {text:input, id: Math.random()*1000}])
+  const AddHandler = ()=>{
+    console.log('add clicked')
+    // setCard_bundle_description([...card_bundle_description, {text:input, id: Math.random()*1000}])
+    setCard_bundle_description([...card_bundle_description, input])
     setInput('')
+    // for(let item of card_bundle_description){
+    //   setDesc([...desc,item.text]);
+    // }
   }
+  // console.log(card_bundle_description,"carddfdsfjsdfasf");
+  
   const EditHandler = (e)=>{
     setEditingText(e.target.value)
-    console.log(e.target.value)
+    // console.log(e.target.value)
   }
+  const handleDelete = (id)=>{
+    setCard_bundle_description(card_bundle_description.filter((item,index)=> index !== id))
+}
 
   const SubmitEdit = (id)=>{
-    setDesc([...desc].map((descs)=>{
-      if(descs.id === id){
-        descs.text = edittext
+    setCard_bundle_description([...card_bundle_description].map((descs,index)=>{
+      if(index === id){
+        descs = edittext
       }
       return descs
     }))
@@ -146,52 +130,7 @@ const handlePriceChange = (e)=>{
       setPrice(e.target.value);
   }
 
-
   
-  const [description,setDescription]=useState([])
-  const handleChange1=(e)=>{
-    console.log(e.target.value,"khkhkh");
-    
-    setCard_bundle_description([e.target.value]);
-  }
-
-  console.log(card_bundle_description,"description");
-  
- 
-//   const handleFileChange = (e) => {
-//     const { files } = e.target;
-//     if (files) {
-//       const selectedFiles = Array.from(files);
-
-    
-//       setValues((prev) => ({
-//         ...prev,
-//         collectionImage: selectedFiles,
-//       }));
-
-
-//       const newImagePreviews = selectedFiles.map((file) =>
-//         URL.createObjectURL(file)
-//       );
-//       setImagePreviews(newImagePreviews);
-//     }
-//   };
-
-//   const removeImage = (index) => {
-//     const updatedImages = [...values.collectionImage];
-//     updatedImages.splice(index, 1); 
-
-//     const updatedPreviews = [...imagePreviews];
-//     updatedPreviews.splice(index, 1); 
-
-  
-//     setValues((prev) => ({
-//       ...prev,
-//       collectionImage: updatedImages,
-//     }));
-//     setImagePreviews(updatedPreviews);
-//   };
-
   const validateForm = () => {
     const newErrors = {
         number_of_cards: values.number_of_cards? "" : "number_of_cards is required.",
@@ -207,34 +146,31 @@ const handlePriceChange = (e)=>{
 
 
   const handleSubmit = async (e) => {
+    console.log('handle clicked')
     e.preventDefault();
 
     if (!validateForm()) {
       return;
     }
 
-   
-
-
     const formData = new FormData();
     formData.append("number_of_cards", values.number_of_cards);
     formData.append("price", state);
+    
+    
     formData.append("card_bundle_description", JSON.stringify(card_bundle_description));
+
     formData.append("discount", values.discount);
     formData.append("currency_type", values.currency_type);
 
-
-    
-    // console.log(typeof(card_bundle_description));
-    // console.log(card_bundle_description);
     
 
     for (const value of formData.values()) {
         console.log(value,"oksdhfkdhfg");
-
       }
-// return     for the stop code
-return
+      // return     for the stop code
+      // console.log(card_bundle_description,"descdfjdljfljdlfj")
+// return
     try {
       const response = await axios.post(
         "https://magshopify.goaideme.com/card/add-card-bundle",
@@ -256,6 +192,8 @@ return
     }
   };
 
+
+ 
 
   return (
     <>
@@ -342,39 +280,26 @@ return
           </label>
 
           <div className="">
-                <input value={input} onChange={InputHandler}/>
-                <button onClick={SubmitHandler}>Add</button>  
-                {desc.map(descs =>
-                <div key={descs.id}>
-                    {edit === descs.id ? 
-                (<><input type="text" value={edittext} onChange={EditHandler}/>
-                <button onClick={()=>SubmitEdit(descs.id)}>Edit</button></>)
-                    : (<p onDoubleClick={()=>setEditing(descs.id)}>{descs.text}</p>)
+                <input value={input} className="border shadow-md w-80 mx-4 my-3 px-3" onChange={InputHandler}/>
+                <button type="button" onClick={AddHandler}>Add</button>  
+                {card_bundle_description.map((descs,index) =>
+                <div key={index}>
+                    {edit === index ? 
+                (<><input type="text" value={edittext} className="mx-4 px-3 w-80 " onChange={EditHandler}/>
+                <button onClick={()=>SubmitEdit(index)}>Edit</button></>)
+                    : (
+                        <div className="flex w-96 justify-between gap-4"> 
+                          <p onDoubleClick={()=>setEditing(index)} className="ml-2 flex w-80 px-3 ">{descs}</p>
+                          <button type="button" className="text-red-600" onClick={()=>handleDelete(index)}><MdDelete size={24} /></button>
+                        </div>
+                      )
                     }
                 </div>
                 )}  
             </div>
 
+            </div>
 
-
-
-
-
-          {/* <textarea
-            type="text"
-            id="card_bundle_description"
-            name="card_bundle_description"
-            value={card_bundle_description}
-            onChange={handleChange1}
-            className="w-full p-2 border"
-          /> */}
-
-          {/* {errors.card_bundle_description && (
-            <p className="text-red-500 text-sm">{errors.card_bundle_description}</p>
-          )} */}
-        </div>
-        
-        
 
         <div className="flex gap-4">
           <Button

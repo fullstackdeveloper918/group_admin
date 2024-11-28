@@ -1,14 +1,59 @@
+"use client"
 import { Button } from '@/components/ui/button';
-import { fetchData } from '@/lib/actions';
+import axios from 'axios';
 import Link from 'next/link';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import toast from 'react-hot-toast';
+import { MdDelete } from "react-icons/md";
 
-const page = async() => {
-    const data = await fetchData("https://magshopify.goaideme.com/card/bundle-list");
+
+const page = () => {
+  const [data, setData] = useState([]);
+  
+  useEffect(()=>{
+
+    const fetchData = async()=>{
+       try {
+        const response = await fetch("https://magshopify.goaideme.com/card/bundle-list?page=1&limit=10");
+        const result = await response.json();
+        setData(result);
+       } catch (error) {
+         console.error("Error fetching data", error);
+       }
+    }
+
+    fetchData();
+
+  },[])
     
+  // console.log(data);
+   
+  const handleDelete = async(id)=>{
+    const uuidData = {
+      bundle_id : id
+    }
+    console.log(uuidData);
+
+    try {
+      const response = await axios.post("https://magshopify.goaideme.com/card/delete-bundle",
+        uuidData,
+        {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+
+      if (response) {
+        toast.success("Card Delete successfully");
+        window.location.reload()
+      }
+    } catch (error) {
+      console.error("Network error", error);
+    }
     
-    // console.log(data);
-    
+  }
+
 
   return (
     <section>
@@ -46,9 +91,11 @@ const page = async() => {
                       }
                     </ul>
                   </div>
-                  
+                  <button type="button" className='text-red-600' onClick={()=>handleDelete(item.uuid)} ><MdDelete size={24} /></button>
+                 
+
                 </div>
-                
+                      
               </div>
                 ))
             }
