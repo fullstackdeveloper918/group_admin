@@ -70,10 +70,12 @@ const ProductCard = ({ item }) => {
       </div>
       <div className="px-4 space-y-3 pb-6">
         <div className="space-y-1">
-        <button className="bg-red-600 text-white py-2 px-3 rounded-sm" onClick={()=>handleDelete(item?.uuid)}>Delete</button>
-          <p className="text-sm text-gray-500">{item?.title}</p>
+       <div className="text-end">
+       <button className="bg-red-600 text-white py-2 px-3 rounded-sm flex" onClick={()=>handleDelete(item?.uuid)}><svg stroke="currentColor" fill="#fff" stroke-width="0" viewBox="0 0 24 24" height="24" width="24" xmlns="http://www.w3.org/2000/svg"><path fill="none" d="M0 0h24v24H0z"></path><path d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V7H6v12zM19 4h-3.5l-1-1h-5l-1 1H5v2h14V4z"></path></svg> Delete</button>
+       
+       </div>   <p className="text-sm my-3 block text-gray-900 text-wrap">{item?.title}</p>
 
-          <Image alt="Stars" src="/svg/stars.svg" width={100} height={100} />
+          <Image alt="Stars" src="/svg/stars.svg" width={100} height={30} />
         </div>
         <div className="flex items-center justify-between">
           <div className="font-semibold text-ellipsis overflow-hidden whitespace-nowrap">

@@ -5,6 +5,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import toast from 'react-hot-toast';
 import { MdDelete } from "react-icons/md";
+import { FaCheck } from "react-icons/fa6";
 
 
 const page = () => {
@@ -73,25 +74,26 @@ const page = () => {
                 <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4">
                 
           
-                <div className="m-3 rounded-2xl bg-gray-100 relative">
-                  <h1>{item.number_of_cards} Cards</h1>
-                  <span>$ {item.price}</span>
-                  <span>$ {item.cost_price}</span>
-                  <span>$ {item.sale_price}</span>
-                  <span> {item.discount}</span>
+                <div className="p-3 text-center rounded-2xl bg-gray-100 relative">
+                  <h1  className='text-2xl my-3'>{item.number_of_cards} Cards</h1>
+                  <span className='text-xl '>$ {item.price} </span>
+                  <span className='line-through text-3xl text-[#9f9d9d] ml-2' > $ {item.cost_price}</span>
+                  <span className="text-3xl text-grey-700 ml-2">$ {item.sale_price}</span>
+                 
                   <span> {item.currency_type}</span>
+                  <span className='bg-[#C1F2C7] p-2 text-lg font-medium my-4 block w-24 mx-auto rounded-lg'> {item.discount}</span>
                   <div>
-                    <ul>
+                    <ul className='text-left'>
                       {
                         item.card_bundle_description.map((data,index)=>(
                             <li key={index}>
-                                <span>{data}</span>
+                                <span className='flex gap-2 mb-2 text-lg align-center'><FaCheck className='mt-2 text-green-600 ml-3'/> {data}</span>
                             </li>
                         ))
                       }
                     </ul>
                   </div>
-                  <button type="button" className='text-red-600' onClick={()=>handleDelete(item.uuid)} ><MdDelete size={24} /></button>
+                  <button type="button" className='bg-[#a50404] text-white py-2 px-3 rounded-sm flex w-full my-3  text-center justify-center mt-6 max-w-[90%] mx-auto' onClick={()=>handleDelete(item.uuid)} ><MdDelete size={24} className='mr-2' />Delete</button>
                  
 
                 </div>

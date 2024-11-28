@@ -1,4 +1,5 @@
 "use client"
+import { Button } from '@/components/ui/button';
 import React, { useEffect, useState } from 'react'
 
  const page = () => {
@@ -20,7 +21,7 @@ import React, { useEffect, useState } from 'react'
         fetchData();
     },[])
     
-    console.log(data);
+    // console.log(data);
 
 
   return (
@@ -30,6 +31,15 @@ import React, { useEffect, useState } from 'react'
         Pricing List
       </h2>
 
+      <div>
+              <Button className='leading-normal max-w-sm sm:text-lg sm:leading-7'>
+                  Group
+              </Button>
+              <Button className='leading-normal max-w-sm sm:text-lg sm:leading-7'>
+              Individual
+              </Button>
+       
+      </div>
     </div>
      <div className='grid grid-cols-3 gap-4'>
         {
@@ -42,14 +52,16 @@ import React, { useEffect, useState } from 'react'
               <h1>{item.card_type}</h1>
               <p>{item.card_price}</p>
               <p>{item.card_desc}</p>
+              {/* <p>{item.benfit_desc}</p> */}
                 <div>
                         <ul>
                             {
-                                item.benfit_desc.map((desc,index)=>{
+                                item.benfit_desc && item.benfit_desc.map((desc,index)=>(
                                     <li key={index}>
                                         <span>{desc}</span>
+                                        
                                     </li>
-                                })
+                                ))
                             }
                         </ul>
                 </div>
