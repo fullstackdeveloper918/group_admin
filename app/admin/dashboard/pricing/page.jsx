@@ -125,30 +125,4 @@ const page = () => {
 
 export default page;
 
-// {
-//   data.data && data.data.map((item,index)=>(
-//     <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4">
 
-// <div className="m-3 rounded-2xl bg-gray-100 relative">
-
-//   <h1>{item.card_type}</h1>
-//   <p>{item.card_price}</p>
-//   <p>{item.card_desc}</p>
-//   {/* <p>{item.benfit_desc}</p> */}
-//     <div>
-//             <ul>
-//                 {
-//                     item.benfit_desc && item.benfit_desc.map((desc,index)=>(
-//                         <li key={index}>
-//                             <span>{desc}</span>
-
-//                         </li>
-//                     ))
-//                 }
-//             </ul>
-//     </div>
-// </div>
-
-//   </div>
-//     ))
-// }

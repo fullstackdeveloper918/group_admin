@@ -17,6 +17,7 @@ const page = () => {
     const fetchData = async()=>{
        try {
         const response = await fetch("https://magshopify.goaideme.com/card/bundle-list-admin?page=1&limit=10");
+        // const response = await fetch("https://magshopify.goaideme.com/card/bundle-list?page=1&limit=10");
         const result = await response.json();
         setData(result);
        } catch (error) {
@@ -50,8 +51,6 @@ const page = () => {
         toast.success("Card Delete successfully");
         window.location.reload()
       }
-
-      // router.back()
     } catch (error) {
       console.error("Network error", error);
     }
@@ -79,7 +78,7 @@ const page = () => {
           
                 <div className="p-3 text-center rounded-2xl bg-gray-100 relative">
                   <h1  className='text-2xl my-3'>{item.number_of_cards} Cards</h1>
-                  <span className='text-xl '>$ {item.price} </span>
+                  <span className='text-xl '>$ {item.price} </span><br />
                   <span className='line-through text-3xl text-[#9f9d9d] ml-2' > $ {item.cost_price}</span>
                   <span className="text-3xl text-grey-700 ml-2">$ {item.sale_price}</span>
                  

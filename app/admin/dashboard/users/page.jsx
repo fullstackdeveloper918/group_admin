@@ -31,7 +31,7 @@ const page = () => {
       <h2 className='max-w-sm text-3xl md:text-5xl text-start text-emerald-600 font-bold leading-[1.1]'>
         User List
       </h2>
-      <p>count is {count}</p>
+      <p>Users: {count}</p>
 
     </div>
      <div className='grid grid-cols-3 gap-4'>
