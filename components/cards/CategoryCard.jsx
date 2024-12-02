@@ -11,6 +11,11 @@ import {
 import { Button } from "../ui/button";
 import {toast} from "react-hot-toast";
 import axios from "axios";
+import { MdEdit } from "react-icons/md";
+import { RiDeleteBin6Line } from "react-icons/ri";
+
+
+
 
 const CategoryCard = ({ item }) => {
 
@@ -51,7 +56,7 @@ const CategoryCard = ({ item }) => {
   
 
   return (
-    <Card className="relative h-full w-full overflow-hidden edit_card rounded-lg bg-transparent transition-colors group hover:bg-emerald-600">
+    <Card className="relative h-full w-full overflow-hidden edit_card rounded-lg bg-transparent transition-colors group hover:bg-[#f0f9f6]">
       <CardHeader className="flex flex-row justify-between">
         <div className="card_image relative">
         <Image
@@ -63,21 +68,22 @@ const CategoryCard = ({ item }) => {
         
       </CardHeader>
       <CardContent className="space-y-1.5">
-        <CardTitle className="capitalize text-emerald-600 group-hover:text-white">
+        <CardTitle className="capitalize text-emerald-600 group-hover:text-grey">
           {item?.collection_title}
         </CardTitle>
-        <CardDescription className="group-hover:text-white break-all">
+        <CardDescription className="e break-all line_limited">
           {item?.collection_description}
         </CardDescription>
       </CardContent>
 
-      <div className="flex justify-end px-6 pb-4">
+      <div className="flex justify-start px-6 pb-5">
 
         <Link href={`/admin/dashboard/category/edit/${item?.uuid}`}>
-          <Button className="mr-3">Edit</Button>
+          <Button className="mr-3 pl-2 bg-[#cfffcf] text-[green] hover:bg-[#059669] hover:text-white"> <MdEdit className="mr-1" size={20} />
+          Edit</Button>
         </Link>
         {/* nsnc */}
-          <button onClick={() => handleDelete(item?.uuid)}>Delete</button>
+          <button onClick={() => handleDelete(item?.uuid)} className="bg-[#f8dfdf] text-[#f20c0c] py-2 px-3 rounded-sm flex hover:bg-[#f20c0c] hover:text-white"> <RiDeleteBin6Line  className="mr-1 mt-0.5" size={18}/>          Delete</button>
           
         </div>
     </Card>

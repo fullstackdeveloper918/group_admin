@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 const Page = () => {
   const router = useRouter();
@@ -178,15 +179,17 @@ const Page = () => {
   return (
     <>
       <div className="">
-        <button type="button" onClick={handleBack}>
-          <IoMdArrowBack size={26} />
+      <button type="button" onClick={handleBack} className="flex bg-[#182237] text-white p-2 pl-1 rounded-lg my-3 mb-5" >
+        <IoChevronBackOutline 
+         size={22} />
+         Back
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 p-6 rounded-lg  mx-auto bg-[#f5f5f7] relative">
         <div>
           <label
             htmlFor="number_of_cards"
-            className="block text-sm font-semibold"
+            className="block text-sm font-semibold mb-2"
           >
             Number of Card
           </label>
@@ -196,7 +199,7 @@ const Page = () => {
             name="number_of_cards"
             value={values.number_of_cards || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.number_of_cards && (
             <p className="text-red-500 text-sm">{errors.number_of_cards}</p>
@@ -204,7 +207,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="state" className="block text-sm font-semibold">
+          <label htmlFor="state" className="block text-sm font-semibold mb-2">
             Select Price
           </label>
           <select
@@ -212,7 +215,7 @@ const Page = () => {
             name="price"
             value={price}
             onChange={handlePriceChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           >
             <option value="">Select a collection</option>
             <option value={state}>{state}</option>
@@ -223,7 +226,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="discount" className="block text-sm font-semibold">
+          <label htmlFor="discount" className="block text-sm font-semibold mb-2">
             Discount
           </label>
           <input
@@ -232,7 +235,7 @@ const Page = () => {
             name="discount"
             value={values.discount || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.discount && (
             <p className="text-red-500 text-sm">{errors.discount}</p>
@@ -241,7 +244,7 @@ const Page = () => {
         <div>
           <label
             htmlFor="currency_type"
-            className="block text-sm font-semibold"
+            className="block text-sm font-semibold mb-2"
           >
             Currency Type
           </label>
@@ -251,7 +254,7 @@ const Page = () => {
             name="currency_type"
             value={values.currency_type || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.currency_type && (
             <p className="text-red-500 text-sm">{errors.currency_type}</p>
@@ -261,7 +264,7 @@ const Page = () => {
         <div>
           <label
             htmlFor="card_bundle_description"
-            className="block text-sm font-semibold"
+            className="block text-sm font-semibold mb-2"
           >
             Description
           </label>
@@ -313,7 +316,7 @@ const Page = () => {
         </div>
 
         <div className="flex gap-4">
-          <Button type="submit" className="bg-blue-500 text-white">
+          <Button type="submit" className="py-2 bg-primary text-white px-5 mt-3">
             Save
           </Button>
         </div>

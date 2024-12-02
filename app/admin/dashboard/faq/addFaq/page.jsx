@@ -5,6 +5,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
 import { IoMdArrowBack } from "react-icons/io";
+import { IoChevronBackOutline } from 'react-icons/io5';
 
 
 const page = () => {
@@ -81,31 +82,35 @@ const page = () => {
   return (
     <>
         <div className="">
-            <button type="button" onClick={handleBack}><IoMdArrowBack size={26} /></button>
+        <button type="button" onClick={handleBack} className="flex bg-[#182237] text-white p-2 pl-1 rounded-lg my-3 mb-5" >
+        <IoChevronBackOutline 
+         size={22} />
+         Back
+        </button>
         </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 p-6 rounded-lg  mx-auto bg-[#f5f5f7] relative">
         <div className="">
-            <label htmlFor="question" className="block text-sm font-semibold">
+            <label htmlFor="question" className="block text-sm font-semibold mb-2">
                 Question
             </label>
             <input 
             type="text"
             id='question'
             name='question'
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
             value={values.question || ""}
             onChange={handleChange}
              />
         </div>
         <div className="">
-            <label htmlFor="question" className="block text-sm font-semibold">
+            <label htmlFor="question" className="block text-sm font-semibold mb-2">
                 Answer
             </label>
             <input 
             type="text"
             id='answer'
             name='answer'
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
             value={values.answer || ""}
             onChange={handleChange}
              />
@@ -113,7 +118,7 @@ const page = () => {
 
         <div className="flex gap-4">
          
-          <Button type="submit" className="bg-blue-500 text-white">
+          <Button type="submit" className="py-2 bg-primary text-white px-5 mt-3">
             Save
           </Button>
         </div>

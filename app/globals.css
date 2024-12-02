@@ -90,3 +90,20 @@ body {
 .edit_card img {
 object-fit: contain;
 }
+
+.line_limited{
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 4;
+  overflow: hidden;
+}
+.margin_zero{
+  margin: 0 !important;
+}
+.border_radius{
+  border-radius: 10px 0 10px 0;
+}
+table .table_heading{
+  padding: 10px;
+  text-align: left;
+}

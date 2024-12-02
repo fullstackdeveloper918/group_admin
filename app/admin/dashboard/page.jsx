@@ -75,7 +75,7 @@ const dashboard = () => {
                       fill
                     />
                   </div>
-                  <div className="flex flex-col gap-6">
+                  <div className="flex flex-col gap-6 text-white">
                     <span className="font-bold">🔥 Available Now</span>
                     <h3 className="font-bold">
                       How to use the new version of the admin dashboard?

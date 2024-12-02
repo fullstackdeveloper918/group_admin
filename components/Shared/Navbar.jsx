@@ -10,6 +10,8 @@ import {
 const Navbar = () => {
   const pathname = usePathname();
 
+  console.log(pathname,"jdlfsdfjladsjlfjdsalf");
+
   return (
     <div className="flex items-center justify-between rounded-lg p-5 bg-[#182237]">
       <div className="font-bold capitalize text-[#b7bac1]">
@@ -17,7 +19,7 @@ const Navbar = () => {
       </div>
       <div className="flex items-center gap-5">
         <div className="flex items-center gap-2 bg-[#2e374a] p-2 rounded-lg">
-          <MdSearch />
+          <MdSearch className="text-white" />
           <input
             type="text"
             placeholder="Search..."

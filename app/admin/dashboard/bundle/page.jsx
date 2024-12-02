@@ -1,112 +1,136 @@
-"use client"
-import { Button } from '@/components/ui/button';
-import axios from 'axios';
-import Link from 'next/link';
-import React, { useEffect, useState } from 'react'
-import toast from 'react-hot-toast';
+
+"use client";
+import { Button } from "@/components/ui/button";
+import axios from "axios";
+import Link from "next/link";
+import React, { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
+import ReactPaginate from "react-paginate";
 
-import {useRouter} from "next/navigation"
 const page = () => {
   const [data, setData] = useState([]);
-  const router=useRouter()
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
 
-  useEffect(()=>{
-
-    const fetchData = async()=>{
-       try {
-        const response = await fetch("https://magshopify.goaideme.com/card/bundle-list-admin?page=1&limit=10");
-        // const response = await fetch("https://magshopify.goaideme.com/card/bundle-list?page=1&limit=10");
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          `https://magshopify.goaideme.com/card/bundle-list-admin?page=${currentPage}&limit=10`
+        );
         const result = await response.json();
-        setData(result);
-       } catch (error) {
-         console.error("Error fetching data", error);
-       }
-    }
+        setData(result.data || []);
+        setTotalPages(Math.ceil(result.totalItems / 10)); 
+      } catch (error) {
+        console.error("Error fetching data", error);
+      }
+    };
 
     fetchData();
+  }, [currentPage]);
 
-  },[])
-    
-  // console.log(data);
-   
-  const handleDelete = async(id)=>{
-    const uuidData = {
-      bundle_id : id
-    }
-    console.log(uuidData);
-
+  const handleDelete = async (id) => {
+    const uuidData = { bundle_id: id };
     try {
-      const response = await axios.post("https://magshopify.goaideme.com/card/delete-bundle",
+      const response = await axios.post(
+        "https://magshopify.goaideme.com/card/delete-bundle",
         uuidData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        { headers: { "Content-Type": "application/json" } }
       );
 
       if (response) {
-        toast.success("Card Delete successfully");
-        window.location.reload()
+        toast.success("Card deleted successfully");
+        setData((prev) => prev.filter((item) => item.uuid !== id)); // Remove deleted item locally
       }
     } catch (error) {
       console.error("Network error", error);
     }
-    
-  }
+  };
 
+  const handlePageClick = (selectedItem) => {
+    setCurrentPage(selectedItem.selected + 1); 
+  };
 
   return (
-    <section>
-        <div className='flex flex-col space-y-4 my-4 '>
-          <h2 className='max-w-sm text-3xl md:text-5xl text-start text-emerald-600 font-bold leading-[1.1]'>
+    <section className="space-y-8 px-4 sm:px-6 lg:px-8 py-8 md:pt-10 lg:pt-18 sm:pb-28">
+      <div className="flex items-end justify-between">
+        <div className="flex flex-wrap space-y-4 w-full justify-between">
+          <h2 className="text-3xl md:text-4xl text-start text-emerald-600 font-bold leading-[1.1]">
             Bundle List
           </h2>
-          <Link href="/admin/dashboard/bundle/addBundle">
-          <Button className='leading-normal max-w-sm sm:text-lg sm:leading-7'>
-            Add Bundle
-          </Button>
+          <Link href="/admin/dashboard/bundle/addBundle" className="margin_zero">
+            <Button className="leading-normal text-white sm:text-lg sm:leading-7">
+              Add Bundle
+            </Button>
           </Link>
         </div>
-         <div className='grid grid-cols-3 gap-4'>
-            {
-              data.data && data.data.map((item,index)=>(
-                <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4">
-                
-          
-                <div className="p-3 text-center rounded-2xl bg-gray-100 relative">
-                  <h1  className='text-2xl my-3'>{item.number_of_cards} Cards</h1>
-                  <span className='text-xl '>$ {item.price} </span><br />
-                  <span className='line-through text-3xl text-[#9f9d9d] ml-2' > $ {item.cost_price}</span>
-                  <span className="text-3xl text-grey-700 ml-2">$ {item.sale_price}</span>
-                 
-                  <span> {item.currency_type}</span>
-                  <span className='bg-[#C1F2C7] p-2 text-lg font-medium my-4 block w-24 mx-auto rounded-lg'> {item.discount}</span>
-                  <div>
-                    <ul className='text-left'>
-                      {
-                        item.card_bundle_description.map((data,index)=>(
-                            <li key={index}>
-                                <span className='flex gap-2 mb-2 text-lg align-center'><FaCheck className='mt-2 text-green-600 ml-3'/> {data}</span>
-                            </li>
-                        ))
-                      }
-                    </ul>
-                  </div>
-                  <button type="button" className='bg-[#a50404] text-white py-2 px-3 rounded-sm flex w-full my-3  text-center justify-center mt-6 max-w-[90%] mx-auto' onClick={()=>handleDelete(item.uuid)} ><MdDelete size={24} className='mr-2' />Delete</button>
-                 
+      </div>
 
-                </div>
-                      
+      <div className="grid grid-cols-3 gap-4">
+        {data.map((item, index) => (
+          <div
+            key={index}
+            className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4"
+          >
+            <div className="p-3 text-center rounded-2xl bg-gray-100 relative">
+              <h1 className="text-2xl my-3">{item.number_of_cards} Cards</h1>
+              <span className="text-xl ">$ {item.price} </span>
+              <br />
+              <span className="line-through text-3xl text-[#9f9d9d] ml-2">
+                $ {item.cost_price}
+              </span>
+              <span className="text-3xl text-grey-700 ml-2">
+                $ {item.sale_price}
+              </span>
+
+              <span> {item.currency_type}</span>
+              <span className="bg-[#C1F2C7] p-2 text-lg font-medium my-4 block w-24 mx-auto rounded-lg">
+                {item.discount}
+              </span>
+              <div>
+                <ul className="text-left">
+                  {item.card_bundle_description.map((data, index) => (
+                    <li key={index}>
+                      <span className="flex gap-2 mb-2 text-lg align-center">
+                        <FaCheck className="mt-2 text-green-600 ml-3" />
+                        {data}
+                      </span>
+                    </li>
+                  ))}
+                </ul>
               </div>
-                ))
-            }
-         </div>
-    </section>
-  )
-}
+              <button
+                type="button"
+                className="bg-[#a50404] text-white py-2 px-3 rounded-sm flex w-full my-3 text-center justify-center mt-6 max-w-[90%] mx-auto"
+                onClick={() => handleDelete(item.uuid)}
+              >
+                <MdDelete size={24} className="mr-2" />
+                Delete
+              </button>
+            </div>
+          </div>
+        ))}
+      </div>
 
+      <ReactPaginate
+        previousLabel={"Previous"}
+        nextLabel={"Next"}
+        breakLabel={"..."}
+        pageCount={totalPages}
+        marginPagesDisplayed={2}
+        pageRangeDisplayed={5}
+        onPageChange={handlePageClick}
+        containerClassName={"pagination flex justify-center space-x-2 mt-4"}
+        pageClassName={"page-item"}
+        pageLinkClassName={"page-link px-4 py-2 border rounded"}
+        previousLinkClassName={"prev-link px-4 py-2 border rounded"}
+        nextLinkClassName={"next-link px-4 py-2 border rounded"}
+        activeClassName={"active bg-blue-500 text-white"}
+      />
+    </section>
+  );
+};
 
 export default page;

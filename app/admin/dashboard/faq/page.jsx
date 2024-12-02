@@ -28,18 +28,24 @@ const page = () => {
 
     
   return (
-    <section>
-        <div className='flex flex-col space-y-4 my-4 '>
-          <h2 className='max-w-sm text-3xl md:text-5xl text-start text-emerald-600 font-bold leading-[1.1]'>
-            FAQ List
+
+    <section className='space-y-8 px-4 sm:px-6 lg:px-8 py-8 md:pt-10 lg:pt-18 sm:pb-28 '>
+     
+      <div className="flex items-end justify-between">
+        <div className="flex flex-wrap space-y-4 w-full justify-between	">
+          <h2 className=" text-3xl md:text-4xl text-start text-emerald-600 font-bold leading-[1.1]">
+          FAQ List
           </h2>
-          <Link href="/admin/dashboard/faq/addFaq">
-          <Button className='leading-normal max-w-sm sm:text-lg sm:leading-7'>
+          <Link href="/admin/dashboard/faq/addFaq" className="margin_zero">
+            <Button className="leading-normal text-white sm:text-lg sm:leading-7">
             Add FAQ
-          </Button>
+            </Button>
           </Link>
         </div>
+      </div>
+
     <div>
+    
      {
        data.data && data.data.map((item,index)=>(
             <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4">

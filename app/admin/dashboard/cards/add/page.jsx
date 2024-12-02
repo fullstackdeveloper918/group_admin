@@ -4,7 +4,8 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
-import { IoMdArrowBack } from "react-icons/io";
+
+import { IoChevronBackOutline } from "react-icons/io5";
 
 const Page = () => {
 
@@ -167,16 +168,18 @@ const Page = () => {
   return (
     <>
       <div className="">
-        <button type="button" onClick={handleBack}>
-          <IoMdArrowBack size={26} />
+        <button type="button" onClick={handleBack} className="flex bg-[#182237] text-white p-2 pl-1 rounded-lg my-3 mb-5" >
+        <IoChevronBackOutline 
+         size={22} />
+         Back
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 p-6 rounded-lg  mx-auto bg-[#f5f5f7] relative">
 
       <div>
           <label
             htmlFor="selectedCollection"
-            className="block text-sm font-semibold"
+            className="block text-sm font-semibold mb-2"
           >
             Select Category
           </label>
@@ -185,7 +188,7 @@ const Page = () => {
             name="selectedCollection"
             value={values.selectedCollection}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           >
             <option value="">Select a collection</option>
             {data && data.map((item) => (
@@ -200,7 +203,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label className="block text-sm font-semibold">Visible at Home</label>
+          <label className="block text-sm font-semibold mb-2">Visible at Home</label>
           <div className="flex items-center gap-4">
             <label className="flex items-center">
               <input
@@ -234,7 +237,7 @@ const Page = () => {
 
 
         <div>
-          <label htmlFor="url" className="block text-sm font-semibold">
+          <label htmlFor="url" className="block text-sm font-semibold mb-2">
             Cards URL
           </label>
           <input
@@ -243,7 +246,7 @@ const Page = () => {
             name="url"
             value={values.url}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.url && (
             <p className="text-red-500 text-sm">{errors.url}</p>
@@ -251,7 +254,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="title" className="block text-sm font-semibold">
+          <label htmlFor="title" className="block text-sm font-semibold mb-2">
             Cards Title
           </label>
           <input
@@ -260,7 +263,7 @@ const Page = () => {
             name="title"
             value={values.title || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.title && (
             <p className="text-red-500 text-sm">{errors.title}</p>
@@ -268,7 +271,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="tags" className="block text-sm font-semibold">
+          <label htmlFor="tags" className="block text-sm font-semibold mb-2">
             Cards Tags
           </label>
           <input
@@ -277,7 +280,7 @@ const Page = () => {
             name="tags"
             value={values.tags || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.tags && (
             <p className="text-red-500 text-sm">{errors.tags}</p>
@@ -285,7 +288,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="inventory" className="block text-sm font-semibold">
+          <label htmlFor="inventory" className="block text-sm font-semibold mb-2">
             Cards Inventory
           </label>
           <input
@@ -294,14 +297,14 @@ const Page = () => {
             name="inventory"
             value={values.inventory || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.collectionType && (
             <p className="text-red-500 text-sm">{errors.collectionType}</p>
           )}
         </div>
         <div>
-          <label htmlFor="price" className="block text-sm font-semibold">
+          <label htmlFor="price" className="block text-sm font-semibold mb-2">
             Cards Price
           </label>
           <input
@@ -310,14 +313,14 @@ const Page = () => {
             name="price"
             value={values.price || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.price && (
             <p className="text-red-500 text-sm">{errors.price}</p>
           )}
         </div>
         <div>
-          <label htmlFor="sale" className="block text-sm font-semibold">
+          <label htmlFor="sale" className="block text-sm font-semibold mb-2">
             Cards Sale
           </label>
           <input
@@ -326,7 +329,7 @@ const Page = () => {
             name="sale"
             value={values.sale || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.sale && (
             <p className="text-red-500 text-sm">{errors.sale}</p>
@@ -334,7 +337,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="description" className="block text-sm font-semibold">
+          <label htmlFor="description" className="block text-sm font-semibold mb-2">
             Cards Description
           </label>
           <textarea
@@ -342,7 +345,7 @@ const Page = () => {
             name="description"
             value={values.description}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.description && (
             <p className="text-red-500 text-sm">{errors.description}</p>
@@ -350,7 +353,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="collectionImage" className="block text-sm font-semibold">
+          <label htmlFor="collectionImage" className="block text-sm font-semibold mb-2">
             Collection Images
           </label>
           <input
@@ -359,7 +362,7 @@ const Page = () => {
             name="collectionImage"
             multiple
             onChange={handleFileChange}
-            className="w-full p-2 border"
+            className=" p-2 border rounded-sm border-[#8e8e8e6b] border-dashed"
           />
           {errors.collectionImage && (
             <p className="text-red-500 text-sm">{errors.collectionImage}</p>
@@ -392,8 +395,8 @@ const Page = () => {
 
         <div className="flex gap-4">
          
-          <Button type="submit" className="bg-blue-500 text-white">
-            Save
+          <Button type="submit" className="py-2 bg-primary text-white px-5 mt-3">
+            Submit
           </Button>
         </div>
       </form>

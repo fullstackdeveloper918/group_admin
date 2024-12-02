@@ -31,16 +31,19 @@ const page = () => {
     setCard("Single Card");
   };
   return (
-    <section>
-      <div className="flex flex-col space-y-4 my-4 ">
-        <h2 className="max-w-sm text-3xl md:text-5xl text-start text-emerald-600 font-bold leading-[1.1]">
+    <section className='space-y-8 px-4 sm:px-6 lg:px-8 py-8 md:pt-10 lg:pt-18 sm:pb-28'>
+      
+       <div className="flex items-end justify-between">
+        <div className="flex flex-wrap space-y-4 w-full justify-between	">
+          <h2 className=" text-3xl md:text-4xl text-start text-emerald-600 font-bold leading-[1.1]">
           Pricing List
-        </h2>
-        <Link href="/admin/dashboard/pricing/addPricing">
-          <Button className='leading-normal max-w-sm sm:text-lg sm:leading-7'>
+          </h2>
+          <Link href="/admin/dashboard/pricing/addPricing" className="margin_zero">
+            <Button className="leading-normal text-white sm:text-lg sm:leading-7">
             Add Pricing
-          </Button>
+            </Button>
           </Link>
+        </div>
       </div>
       <div className="grid grid-cols-2 gap-4">
         <div>

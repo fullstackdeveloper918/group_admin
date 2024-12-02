@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { Card } from "@/components/ui/card";
 import { IoMdArrowBack } from "react-icons/io";
+import { IoChevronBackOutline } from "react-icons/io5";
 
 const Page = () => {
   const router = useRouter();
@@ -150,13 +151,15 @@ const Page = () => {
   return (
     <>
       <div className="">
-        <button type="button" onClick={handleBack}>
-          <IoMdArrowBack size={26} />
+      <button type="button" onClick={handleBack} className="flex bg-[#182237] text-white p-2 pl-1 rounded-lg my-3 mb-5" >
+        <IoChevronBackOutline
+         size={22} />
+         Back
         </button>
       </div>
-      <form onSubmit={handleSubmit} className="space-y-4">
+      <form onSubmit={handleSubmit} className="space-y-4 p-6 rounded-lg  mx-auto bg-[#f5f5f7] relative">
         <div>
-          <label htmlFor="card" className="block text-sm font-semibold">
+          <label htmlFor="card" className="block text-sm font-semibold mb-2">
             Select Card
           </label>
           <select
@@ -164,7 +167,7 @@ const Page = () => {
             name="card_type"
             value={card}
             onChange={handleCardType}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           >
             <option value="">Select a collection</option>
             {cardType.map((item) => (
@@ -177,7 +180,7 @@ const Page = () => {
         </div>
 
         <div>
-          <label htmlFor="discount" className="block text-sm font-semibold">
+          <label htmlFor="discount" className="block text-sm font-semibold mb-2">
             Card Price
           </label>
           <input
@@ -186,14 +189,14 @@ const Page = () => {
             name="card_price"
             value={values.card_price || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.card_price && (
             <p className="text-red-500 text-sm">{errors.card_price}</p>
           )}
         </div>
         <div>
-          <label htmlFor="card_desc" className="block text-sm font-semibold">
+          <label htmlFor="card_desc" className="block text-sm font-semibold mb-2">
             Card Description
           </label>
           <input
@@ -202,7 +205,7 @@ const Page = () => {
             name="card_desc"
             value={values.card_desc || ""}
             onChange={handleChange}
-            className="w-full p-2 border"
+            className="w-full p-2 border rounded-sm"
           />
           {errors.card_desc && (
             <p className="text-red-500 text-sm">{errors.card_desc}</p>
@@ -212,7 +215,7 @@ const Page = () => {
         <div>
           <label
             htmlFor="benfit_description"
-            className="block text-sm font-semibold"
+            className="block text-sm font-semibold mb-2"
           >
             Benfit Description
           </label>
@@ -264,7 +267,7 @@ const Page = () => {
         </div>
 
         <div className="flex gap-4">
-          <Button type="submit" className="bg-blue-500 text-white">
+          <Button type="submit" className="py-2 bg-primary text-white px-5 mt-3">
             Save
           </Button>
         </div>
