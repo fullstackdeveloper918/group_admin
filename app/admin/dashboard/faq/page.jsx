@@ -2,6 +2,8 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
+import { IoMdAdd } from "react-icons/io";
+import { RiSubtractFill } from "react-icons/ri";
 
 const page = () => {
 
@@ -48,17 +50,19 @@ const page = () => {
     
      {
        data.data && data.data.map((item,index)=>(
-            <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4">
+            <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-lg px-4 mb-2 ">
+                <div className="flex items-center gap-2">
                 <span>{item.question}</span>
                 <button type="button" className='w-12 h-12' onClick={()=>handleFaq(index)}>
                     {
-                        activeIndex === index ? "-" : "+"
+                        activeIndex === index ? <RiSubtractFill size={20} /> : <IoMdAdd size={20} />
                     }
                 </button>
+                </div>
                 {
                     activeIndex === index
                     &&
-                    (<div>
+                    (<div className='pb-3'>
                         <span>{item.answer}</span>
                     </div>)
                 }

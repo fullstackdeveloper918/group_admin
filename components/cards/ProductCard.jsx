@@ -3,6 +3,7 @@ import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import { IoStar,IoStarHalf } from "react-icons/io5";
 // import Link from 'next/link'
 
 // import IconButton from '@/components/ui/IconButton'
@@ -75,13 +76,19 @@ const ProductCard = ({ item }) => {
                 Delete
               </button>
           </div>{" "}
-          <p className="text-sm my-3 block text-gray-900 text-wrap">
+          <p className="capitalize text-lg my-3 block text-gray-900 text-wrap">
             {item?.title}
           </p>
-          <Image alt="Stars" src="/svg/stars.svg" width={100} height={30} />
+          {/* <Image alt="Stars" src="/svg/stars.svg" width={100} height={30} /> */}
+          <p className="flex text-[#FFD43B]">
+            <IoStar />
+            <IoStar />
+            <IoStar />
+            <IoStarHalf />
+          </p>
         </div>
         <div className="flex items-center justify-between">
-          <div className="font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
+          <div className="e break-all font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
             {item?.description}
           </div>
           {/* <div className='flex justify-center group/icon'>
