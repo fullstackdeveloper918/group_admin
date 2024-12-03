@@ -83,7 +83,7 @@ const CategoryCard = ({ item }) => {
           Edit</Button>
         </Link>
         {/* nsnc */}
-          <button onClick={() => handleDelete(item?.uuid)} className="bg-[#f8dfdf] text-[#f20c0c] py-2 px-3 rounded-sm flex hover:bg-[#f20c0c] hover:text-white"> <RiDeleteBin6Line  className="mr-1 mt-0.5" size={18}/>          Delete</button>
+          <button onClick={() => handleDelete(item?.uuid)} className="bg-[#f8dfdf] text-[#f20c0c] py-2 px-3 rounded-sm flex hover:bg-[#f20c0c] hover:text-white"> <RiDeleteBin6Line  className="mr-1 mt-0.5" size={18}/>Delete</button>
           
         </div>
     </Card>

@@ -1,4 +1,3 @@
-
 "use client";
 import { Button } from "@/components/ui/button";
 import axios from "axios";
@@ -8,6 +7,7 @@ import toast from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
+import { RiDeleteBin6Line } from "react-icons/ri";
 
 const page = () => {
   const [data, setData] = useState([]);
@@ -22,7 +22,7 @@ const page = () => {
         );
         const result = await response.json();
         setData(result.data || []);
-        setTotalPages(Math.ceil(result.totalItems / 10)); 
+        setTotalPages(Math.ceil(result.totalItems / 10));
       } catch (error) {
         console.error("Error fetching data", error);
       }
@@ -50,7 +50,7 @@ const page = () => {
   };
 
   const handlePageClick = (selectedItem) => {
-    setCurrentPage(selectedItem.selected + 1); 
+    setCurrentPage(selectedItem.selected + 1);
   };
 
   return (
@@ -60,7 +60,10 @@ const page = () => {
           <h2 className="text-3xl md:text-4xl text-start text-emerald-600 font-bold leading-[1.1]">
             Bundle List
           </h2>
-          <Link href="/admin/dashboard/bundle/addBundle" className="margin_zero">
+          <Link
+            href="/admin/dashboard/bundle/addBundle"
+            className="margin_zero"
+          >
             <Button className="leading-normal text-white sm:text-lg sm:leading-7">
               Add Bundle
             </Button>
@@ -101,12 +104,13 @@ const page = () => {
                   ))}
                 </ul>
               </div>
+              
               <button
-                type="button"
-                className="bg-[#a50404] text-white py-2 px-3 rounded-sm flex w-full my-3 text-center justify-center mt-6 max-w-[90%] mx-auto"
-                onClick={() => handleDelete(item.uuid)}
+                onClick={() => handleDelete(item?.uuid)}
+                className="bg-[#f8dfdf] text-[#f20c0c] py-2 px-3 rounded-sm flex w-full my-3 text-center justify-center mt-6 max-w-[90%] mx-auto hover:bg-[#f20c0c] hover:text-white"
               >
-                <MdDelete size={24} className="mr-2" />
+                {" "}
+                <RiDeleteBin6Line className="mr-1 mt-0.5" size={18} />
                 Delete
               </button>
             </div>

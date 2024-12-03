@@ -1,3 +1,4 @@
+"use client"
 import Image from "next/image";
 import MenuLink from "../Shared/MenuLink";
 import {
@@ -13,6 +14,7 @@ import {
   MdLogout,
 } from "react-icons/md";
 import Link from "next/link";
+import Cookies from "js-cookie";
 
 const menuItems = [
   {
@@ -98,6 +100,9 @@ const menuItems = [
 ];
 
 const Sidebar = async () => {
+  const handleLogout = ()=>{
+    Cookies.remove('token');
+  }
   //   const { user } = await auth();
   return (
     <div className="sticky top-10">
@@ -134,7 +139,9 @@ const Sidebar = async () => {
       //   await signOut();
       // }}
       >
-        <button className="p-5 my-[5px] flex items-center gap-3 cursor-pointer rounded-xl bg-none border-none text-white w-full hover:bg-[#2e374a]">
+        <button
+        onClick={()=>handleLogout()} 
+        className="p-5 my-[5px] flex items-center gap-3 cursor-pointer rounded-xl bg-none border-none text-white w-full hover:bg-[#2e374a]">
           <MdLogout />
           Logout
         </button>

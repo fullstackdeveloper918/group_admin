@@ -4,12 +4,15 @@ import { FormEvent, useState } from "react";
 import "./login.css";
 import React from "react";
 import {toast, Toaster} from "react-hot-toast";
+import Cookies from "js-cookie";
 
 const page = () => {
   const router = useRouter();
   const [emailError, setEmailError] = useState("");
   const [disabled, setDisabled] = useState(false)
   const [passwordError, setPasswordError] = useState("");
+
+  
 
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
@@ -20,9 +23,11 @@ const page = () => {
   const validatePassword = (password) => {
     return password.length >= 6; 
   };
+
+
   async function handleSubmit(event) {
     event.preventDefault();
-  
+    
     // Reset error messages
     setEmailError("");
     setPasswordError("");
@@ -49,6 +54,11 @@ const page = () => {
       return;
     }
   
+    
+    if(email && password){
+      Cookies.set('token',"eyJhbGciOiJIUzI1NiIsInRavi");  // expire in 3 days
+    }
+
     try {
       setDisabled(true)
       const response = await fetch("https://magshopify.goaideme.com/auth/login", {
