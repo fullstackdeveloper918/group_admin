@@ -66,6 +66,11 @@ const page = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
       });
+        // const data = response.json();
+      //   console.log(response);
+      // if(response.token){
+      //   Cookies.set('token',response.token);
+      // }
   
       if (response.status == 200) {
         toast.success('Login Successful')

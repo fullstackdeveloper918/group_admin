@@ -78,8 +78,8 @@ const page = () => {
             className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4"
           >
             <div className="p-3 text-center rounded-2xl bg-gray-100 relative">
-              <h1 className="text-2xl my-3">{item.number_of_cards} Cards</h1>
-              <span className="text-xl ">$ {item.price} </span>
+              <h1 className="text-2xl my-3 font-semibold">{item.number_of_cards} Cards</h1>
+              <span className="text-4xl font-semibold">${item.price} </span>
               <br />
               <span className="line-through text-3xl text-[#9f9d9d] ml-2">
                 $ {item.cost_price}

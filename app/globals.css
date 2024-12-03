@@ -107,3 +107,7 @@ table .table_heading{
   padding: 10px;
   text-align: left;
 }
+
+.clip-bottom {
+  clip-path: polygon(0 0, 100% 0, 100% 100%, 0 calc(100% - 6vw));
+}
