@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { Card } from "@/components/ui/card";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from "react-icons/io5";
+import Cookies from "js-cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -63,9 +64,17 @@ const Page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = Cookies.get("token");
       try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/card/pricing-listing"
+        const response = await fetch(  
+          "https://magshopify.goaideme.com/card/pricing-listing",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+            },
+          }
         );
         const result = await response.json();
         // console.log("result data", result.data);
@@ -123,6 +132,7 @@ const Page = () => {
     // }
     // return     for the stop code
     // return;
+    const token = Cookies.get("token");
     try {
       const response = await axios.post(
         "https://magshopify.goaideme.com/card/add-pricing",
@@ -130,6 +140,7 @@ const Page = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

@@ -8,7 +8,7 @@ import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton'
 
 const page = async () => {
 
-  const data = await fetchData(
+  const data = await fetchData( 
     "https://magshopify.goaideme.com/card/card-listing"
   );
 

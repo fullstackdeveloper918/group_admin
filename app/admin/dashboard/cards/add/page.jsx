@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 
 import { IoChevronBackOutline } from "react-icons/io5";
 
@@ -41,9 +42,16 @@ const Page = () => {
 
   useEffect(() => {
    
-    const fetchData = async () => {
+    const fetchData = async () => { 
+      const token = Cookies.get("token");    //get
       try {
-        const response = await fetch("https://magshopify.goaideme.com/card/collection-listing");
+        const response = await fetch("https://magshopify.goaideme.com/card/collection-listing", {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+          },
+        });
         if (!response.ok) {
           throw new Error("Failed to fetch data");
         }
@@ -141,7 +149,7 @@ const Page = () => {
     values.collectionImage.forEach((file) => {
       formData.append("files", file);
     });
-
+    const token = Cookies.get("token"); 
     try {
       const response = await axios.post(
         "https://magshopify.goaideme.com/card/add-card",
@@ -149,6 +157,7 @@ const Page = () => {
         {
           headers: {
             "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

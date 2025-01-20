@@ -4,6 +4,7 @@ import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoStar,IoStarHalf } from "react-icons/io5";
+import Cookies from "js-cookie";
 // import Link from 'next/link'
 
 // import IconButton from '@/components/ui/IconButton'
@@ -22,13 +23,14 @@ const ProductCard = ({ item }) => {
       if (!confirmDelete) {
         return;
       }
-
+      const token = Cookies.get("token");
       const response = await fetch(
         `https://magshopify.goaideme.com/card/delete-card`,
         {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: JSON.stringify(data),
         }

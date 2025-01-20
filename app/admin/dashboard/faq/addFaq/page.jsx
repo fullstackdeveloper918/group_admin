@@ -6,6 +6,7 @@ import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from 'react-icons/io5';
+import Cookies from "js-cookie";
 
 
 const page = () => {
@@ -54,6 +55,7 @@ const page = () => {
             // console.log(value,"oksdhfkdhfg");
           }
     // return;
+    const token = Cookies.get("token"); 
         try {
           const response = await axios.post(
             "https://magshopify.goaideme.com/card/faq",
@@ -61,6 +63,7 @@ const page = () => {
             {
               headers: {
                 "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
               },
             }
           );

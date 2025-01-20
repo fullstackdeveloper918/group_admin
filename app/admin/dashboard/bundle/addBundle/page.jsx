@@ -7,6 +7,7 @@ import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from "react-icons/io5";
+import Cookies from "js-cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -64,9 +65,17 @@ const Page = () => {
 
   useEffect(() => {
     const fetchPrice = async () => {
+      const token = Cookies.get("token");
       try {
         const response = await fetch(
-          "https://magshopify.goaideme.com/card/pricing-listing"
+          "https://magshopify.goaideme.com/card/pricing-listing",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+            },
+          }
         );
         if (!response.ok) {
           throw new Error("Failed to fetch price");
@@ -147,6 +156,8 @@ const Page = () => {
     formData.append("discount", values.discount);
     formData.append("currency_type", values.currency_type);
 
+    const token = Cookies.get("token");
+
     // for (const value of formData.values()) {
     //     console.log(value,"oksdhfkdhfg");
     //   }
@@ -158,6 +169,7 @@ const Page = () => {
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, 
           },
         }
       );

@@ -15,6 +15,7 @@ import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
+import Cookies from "js-cookie";
 
 const CategoryCard = ({ item }) => {
   // console.log(item,"itemmmmmmmmm")
@@ -35,6 +36,8 @@ const CategoryCard = ({ item }) => {
       collection_uuid: id,
     };
 
+     
+
     try {
       const confirmDelete = window.confirm(
         "Are you sure you want to delete this category?"
@@ -42,13 +45,14 @@ const CategoryCard = ({ item }) => {
       if (!confirmDelete) {
         return;
       }
-
+      const token = Cookies.get("token");
       const response = await axios.post(
         "https://magshopify.goaideme.com/card/delete-collection",
         data,
         {
           headers: {
             "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
         }
       );

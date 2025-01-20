@@ -4,6 +4,7 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { IoMdAdd } from "react-icons/io";
 import { RiSubtractFill } from "react-icons/ri";
+import Cookies from "js-cookie";
 
 const page = () => {
 
@@ -12,8 +13,15 @@ const page = () => {
 
     useEffect(()=>{
         const fetchData = async()=>{
+          const token = Cookies.get("token");
             try {
-                const response  = await fetch("https://magshopify.goaideme.com/card/faq-list");
+                const response  = await fetch("https://magshopify.goaideme.com/card/faq-list", {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+                  },
+                });
                 const result = await response.json();
                 setData(result);
             } catch (error) {

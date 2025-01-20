@@ -1,6 +1,7 @@
 "use client"
 import React from 'react'
 import { useState,useEffect } from 'react'
+import Cookies from "js-cookie";
 
 const page = () => {
 
@@ -8,8 +9,15 @@ const page = () => {
 
     useEffect(()=>{
         const fetchData = async()=>{
+          const token = Cookies.get("token");
             try {
-                const response = await fetch("https://magshopify.goaideme.com/razorpay/payment-list");
+                const response = await fetch("https://magshopify.goaideme.com/razorpay/payment-list", {
+                  method: "GET",
+                  headers: {
+                    "Content-Type": "application/json",
+                    Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+                  },
+                });
                 const result  = await response.json();
                 setData(result);
             } catch (error) {

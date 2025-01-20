@@ -8,6 +8,7 @@ import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { RiDeleteBin6Line } from "react-icons/ri";
+import Cookies from "js-cookie";
 
 const page = () => {
   const [data, setData] = useState([]);
@@ -16,9 +17,17 @@ const page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      const token = Cookies.get("token");
       try {
         const response = await fetch(
-          `https://magshopify.goaideme.com/card/bundle-list-admin?page=${currentPage}&limit=10`
+          `https://magshopify.goaideme.com/card/bundle-list-admin?page=${currentPage}&limit=10`,
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+            },
+          }
         );
         const result = await response.json();
         setData(result.data || []);
@@ -33,11 +42,13 @@ const page = () => {
 
   const handleDelete = async (id) => {
     const uuidData = { bundle_id: id };
+    console.log("uuidData", uuidData)
+    const token = Cookies.get("token");
     try {
       const response = await axios.post(
         "https://magshopify.goaideme.com/card/delete-bundle",
         uuidData,
-        { headers: { "Content-Type": "application/json" } }
+        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } }
       );
 
       if (response) {

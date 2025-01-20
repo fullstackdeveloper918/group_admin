@@ -5,6 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter, useParams } from "next/navigation";
 import { IoChevronBackOutline } from "react-icons/io5";
+import Cookies from "js-cookie";
 
 const EditCategory = ({ data, querydata }) => {
   // console.log(querydata,"querydata");
@@ -51,9 +52,16 @@ const EditCategory = ({ data, querydata }) => {
   }, [CategoryId]);
 
   const fetchCollectionData = async (id) => {
+    const token = Cookies.get("token");
     try {
       const response = await axios.get(
-        `https://magshopify.goaideme.com/card/collection/${id}`
+        `https://magshopify.goaideme.com/card/collection/${id}`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
+          },
+        }
       );
       const data = response?.data;
       setValues({
@@ -170,7 +178,7 @@ const EditCategory = ({ data, querydata }) => {
       formData.append("files", image);
     });
    
-
+    const token = Cookies.get("token");
     try {
       let response;
       if (editMode) {
@@ -180,6 +188,7 @@ const EditCategory = ({ data, querydata }) => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
@@ -190,6 +199,7 @@ const EditCategory = ({ data, querydata }) => {
           {
             headers: {
               "Content-Type": "multipart/form-data",
+              Authorization: `Bearer ${token}`,
             },
           }
         );
