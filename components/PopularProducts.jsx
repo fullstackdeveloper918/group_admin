@@ -7,7 +7,7 @@ const PopularProducts = async () => {
   );
   const products = data?.listing;
 
-  console.log(products, 'products')
+  // console.log(products, 'products')
 
   return (
     <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

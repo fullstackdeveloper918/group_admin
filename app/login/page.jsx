@@ -1,50 +1,74 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { FormEvent, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import "./login.css";
 import React from "react";
-import {toast, Toaster} from "react-hot-toast";
+import { toast, Toaster } from "react-hot-toast";
 import Cookies from "js-cookie";
 
 const page = () => {
   const router = useRouter();
   const [emailError, setEmailError] = useState("");
-  const [disabled, setDisabled] = useState(false)
+  const [disabled, setDisabled] = useState(false);
   const [passwordError, setPasswordError] = useState("");
-
-  
 
   const validateEmail = (email) => {
     const emailRegex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return emailRegex.test(email);
   };
 
- 
   const validatePassword = (password) => {
-    return password.length >= 6; 
+    return password.length >= 6;
   };
 
+  const submitLogin = async (email, password) => {
+    try {
+      setDisabled(true);
+      const response = await fetch(
+        "https://magshopify.goaideme.com/auth/login",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+      const data = await response.json();
+      if (data.token) {
+        Cookies.set("token", data.token);
+      }
 
-  async function handleSubmit(event) {
+      if (response.status === 200) {
+        toast.success("Login Successful");
+        router.push("/admin/dashboard");
+      } else {
+        toast.error("Please enter a valid email and password.");
+      }
+    } catch (error) {
+      toast.error("Something went wrong. Please try again.");
+    } finally {
+      setDisabled(false);
+    }
+  };
+
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    
+
     // Reset error messages
     setEmailError("");
     setPasswordError("");
-  
+
     const formData = new FormData(event.currentTarget);
-  
+
     const email = formData.get("email").trim();
     const password = formData.get("password").trim();
-  
+
     let valid = true;
-  
 
     if (!validateEmail(email)) {
       setEmailError("Please enter a valid email address.");
       valid = false;
     }
-  
+
     if (!validatePassword(password)) {
       setPasswordError("Password must be at least 6 characters.");
       valid = false;
@@ -53,38 +77,9 @@ const page = () => {
     if (!valid) {
       return;
     }
-  
-    
-    if(email && password){
-      Cookies.set('token',"eyJhbGciOiJIUzI1NiIsInRavi");  // expire in 3 days
-    }
 
-    try {
-      setDisabled(true)
-      const response = await fetch("https://magshopify.goaideme.com/auth/login", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, password }),
-      });
-        // const data = response.json();
-      //   console.log(response);
-      // if(response.token){
-      //   Cookies.set('token',response.token);
-      // }
-  
-      if (response.status == 200) {
-        toast.success('Login Successful')
-        setDisabled(false)
-        router.push("/admin/dashboard");
-      }else {
-
-      } 
-    } catch (error) {
-        setDisabled(false)
-      toast.error('Something went wrong. Please try again.');
-    }
-  }
-  
+    submitLogin(email, password);
+  };
 
   return (
     <>
@@ -100,7 +95,7 @@ const page = () => {
                   placeholder="Enter your email"
                 />
                 {emailError && (
-                  <div className="text-red-600 mt-2">{emailError}</div> 
+                  <div className="text-red-600 mt-2">{emailError}</div>
                 )}
               </div>
               <div className="input_box">
@@ -110,10 +105,17 @@ const page = () => {
                   placeholder="Enter your password"
                 />
                 {passwordError && (
-                  <div className="text-red-600 mt-2">{passwordError}</div> 
+                  <div className="text-red-600 mt-2">{passwordError}</div>
                 )}
               </div>
-              <button className="button mt-5" style={{opacity: disabled ? "0.4" : "1", cursor: disabled ? 'default' : 'pointer'}} type="submit">
+              <button
+                className="button mt-5"
+                style={{
+                  opacity: disabled ? "0.4" : "1",
+                  cursor: disabled ? "default" : "pointer",
+                }}
+                type="submit"
+              >
                 Login Now
               </button>
             </form>

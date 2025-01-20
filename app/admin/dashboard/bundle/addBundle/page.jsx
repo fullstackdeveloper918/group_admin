@@ -161,7 +161,7 @@ const Page = () => {
           },
         }
       );
-      console.log(response);
+      // console.log(response);
 
       if (response) {
         toast.success("Card Added successfully");

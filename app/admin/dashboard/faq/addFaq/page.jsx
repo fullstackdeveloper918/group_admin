@@ -51,7 +51,7 @@ const page = () => {
     
     
         for (const value of formData.values()) {
-            console.log(value,"oksdhfkdhfg");
+            // console.log(value,"oksdhfkdhfg");
           }
     // return;
         try {
@@ -64,7 +64,7 @@ const page = () => {
               },
             }
           );
-          console.log(response);
+          // console.log(response);
     
           if (response) {
             toast.success("Faq Added successfully");

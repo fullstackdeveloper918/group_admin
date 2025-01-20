@@ -88,7 +88,7 @@ const CategoryCard = ({ item }) => {
             `${item?.collection_description.substring(0, 70)}...`
           ) : (
             <div className="relative">
-            {item?.collection_description.substring(0, 60)}...
+            {item?.collection_description.substring(0, 70)}...
             <div className="absolute w-full flex flex-col items-center bottom-10 left-1/2 transform -translate-x-1/2 text-center">
               <div className="z-10 bg-white border border-gray-200 shadow-md p-4 rounded-md">
                 {/* Popover content */}

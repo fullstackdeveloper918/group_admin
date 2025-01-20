@@ -9,7 +9,7 @@ import { IoStar,IoStarHalf } from "react-icons/io5";
 // import IconButton from '@/components/ui/IconButton'
 
 const ProductCard = ({ item }) => {
-  console.log(item.images[0].card_images[0], "item");
+  // console.log(item.images[0].card_images[0], "item");
 
   const handleDelete = async (id) => {
     const data = {
@@ -35,7 +35,7 @@ const ProductCard = ({ item }) => {
       );
 
       if (response) {
-        console.log("eneterd");
+        // console.log("eneterd");
         const data = await response.json();
         toast.success("Collection deleted successfully!");
         window.location.reload();
@@ -88,7 +88,7 @@ const ProductCard = ({ item }) => {
           </p>
         </div>
         <div className="flex items-center justify-between">
-          <div className="e break-all font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
+          <div className="font-semibold text-ellipsis overflow-hidden whitespace-nowrap">
             {item?.description}
           </div>
           {/* <div className='flex justify-center group/icon'>

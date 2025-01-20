@@ -33,7 +33,7 @@ const Page = () => {
   };
 
   const AddHandler = () => {
-    console.log("add clicked");
+    // console.log("add clicked");
     setBenfit_description([...benfit_description, input]);
     setInput("");
   };
@@ -68,7 +68,7 @@ const Page = () => {
           "https://magshopify.goaideme.com/card/pricing-listing"
         );
         const result = await response.json();
-        console.log("result data", result.data);
+        // console.log("result data", result.data);
 
         setCardType(result.data);
       } catch (error) {
@@ -104,7 +104,7 @@ const Page = () => {
   };
 
   const handleSubmit = async (e) => {
-    console.log("handle clicked");
+    // console.log("handle clicked");
     e.preventDefault();
 
     if (!validateForm()) {
@@ -133,7 +133,7 @@ const Page = () => {
           },
         }
       );
-      console.log("response", response);
+      // console.log("response", response);
 
       if (response) {
         toast.success("Pricing Card Added successfully");

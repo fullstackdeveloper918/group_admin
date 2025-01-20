@@ -13,7 +13,7 @@ const page = () => {
                 const response = await fetch("https://magshopify.goaideme.com/user/users-list?page=1&limit=10");
                 const result  = await response.json();
                 setData(result);
-                console.log("resultssss",result);
+                // console.log("resultssss",result);
                 setCount(result.total);
                 
             } catch (error) {
@@ -24,6 +24,10 @@ const page = () => {
         fetchData();
     },[])
 
+
+    if (data.length === 0) {
+      return <h1>Loading...</h1>;
+    }
     
   return (
     <section>

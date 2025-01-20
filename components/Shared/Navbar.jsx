@@ -10,7 +10,7 @@ import {
 const Navbar = () => {
   const pathname = usePathname();
 
-  console.log(pathname,"jdlfsdfjladsjlfjdsalf");
+  // console.log(pathname,"jdlfsdfjladsjlfjdsalf");
 
   return (
     <div className="flex items-center justify-between rounded-lg p-5 bg-[#182237]">

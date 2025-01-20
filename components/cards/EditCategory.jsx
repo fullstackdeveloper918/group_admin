@@ -114,10 +114,10 @@ const EditCategory = ({ data, querydata }) => {
   };
 
   const UpdateImage = (index) => {
-    console.log(values.collectionImage, "uuuuuuuuuuuuuuuuuuuu");
+    // console.log(values.collectionImage, "uuuuuuuuuuuuuuuuuuuu");
     if(Array.isArray(values.collectionImage)){
       const UpdatedImage = values.collectionImage.filter((_, i) => i !== index);
-      console.log(UpdatedImage, "updataddddddddd");
+      // console.log(UpdatedImage, "updataddddddddd");
     }
     setValues((prevValues) => ({
       ...prevValues,

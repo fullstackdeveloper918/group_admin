@@ -55,7 +55,7 @@ const page = () => {
                     <td className='px-4 py-2'>
                         {
                             item.userDetail.map((user)=>(
-                                <span>{user.full_name}</span>
+                                <span key={user.id}>{user.full_name}</span>
                             ))
                         }
                     </td>

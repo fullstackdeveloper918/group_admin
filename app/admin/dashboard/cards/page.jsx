@@ -6,8 +6,6 @@ import ProductCard from '@/components/cards/ProductCard'
 import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton'
 
 
-
-
 const page = async () => {
 
   const data = await fetchData(
@@ -15,6 +13,10 @@ const page = async () => {
   );
 
   const cards = data?.listing
+
+  if (!cards || cards.length === 0) {
+    return <h1>Loading...</h1>;
+  }
 
   return (
     <section

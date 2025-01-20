@@ -12,6 +12,8 @@ const page = async () => {
   );
 
   const categories = data?.data
+  // console.log('dataaaa')
+
   
   return (
     <>

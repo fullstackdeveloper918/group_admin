@@ -27,8 +27,7 @@ const dashboard = () => {
               </thead>
               <tbody>
                 {transaction_data.map((item) => (
-                  <>
-                    <tr>
+                    <tr key={item?.id}>
                       <td className="p-5">
                         <div className="flex gap-2 items-center">
                           <Image
@@ -55,7 +54,7 @@ const dashboard = () => {
                       <td className="p-5">{item?.Date}</td>
                       <td className="p-5">{item?.Amount}</td>
                     </tr>
-                  </>
+                  
                 ))}
               </tbody>
             </table>
