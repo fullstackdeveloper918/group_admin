@@ -6,7 +6,7 @@ export function middleware(request) {
     // console.log(userToken,"usser token");
    
     if(!userToken){
-        return NextResponse.redirect(new URL('/login',request.url))
+        return NextResponse.redirect(new URL('/',request.url))
     }
     else{
         return NextResponse.next();
