@@ -13,6 +13,12 @@ import {
   MdHelpCenter,
   MdLogout,
 } from "react-icons/md";
+import { BiSolidCategory } from "react-icons/bi";
+import { PiCardsFill } from "react-icons/pi";
+import { GrBundle } from "react-icons/gr";
+import { ImPriceTags } from "react-icons/im";
+import { FaQuinscape } from "react-icons/fa6";
+import { FaDollarSign } from "react-icons/fa";
 import Link from "next/link";
 import Cookies from "js-cookie";
 
@@ -33,32 +39,32 @@ const menuItems = [
       {
         title: "Category",
         path: "/admin/dashboard/category",
-        icon: <MdShoppingBag />,
+        icon: <BiSolidCategory />,
       },
       {
         title: "Cards",
         path: "/admin/dashboard/cards",
-        icon: <MdShoppingBag />,
+        icon: <PiCardsFill />,
       },
       {
         title: "Bundle",
         path: "/admin/dashboard/bundle",
-        icon: <MdShoppingBag />,
+        icon: <GrBundle />,
       },
       {
         title: "Pricing",
         path: "/admin/dashboard/pricing",
-        icon: <MdShoppingBag />,
+        icon: <ImPriceTags />,
       },
       {
         title: "Transactions",
         path: "/admin/dashboard/transactions",
-        icon: <MdAttachMoney />,
+        icon: <FaDollarSign />,
       },
       {
         title: "FAQ",
         path: "/admin/dashboard/faq",
-        icon: <MdAttachMoney />,
+        icon: <FaQuinscape />,
       },
     ],
   },

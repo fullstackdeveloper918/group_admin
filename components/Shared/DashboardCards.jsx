@@ -76,7 +76,7 @@ const DashboardCards = () => {
           }
         );
         const result = await response.json();
-        console.log("object", result.data)
+        // console.log("object", result.data)
 
         const success = result?.data?.filter((item)=> item.payment_status === 'successed')
         if(success){
