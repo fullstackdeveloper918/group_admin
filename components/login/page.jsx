@@ -66,7 +66,7 @@ const page = () => {
       if (response.status === 200 && data.token) {
         Cookies.set("token", data.token); 
         toast.success("Login Successful" , {
-          autoClose: 500,
+          autoClose: 1000,
         });
         setTimeout(() => {
           router.push("/admin/dashboard"); 
