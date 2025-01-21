@@ -5,13 +5,12 @@ import { rightbarData } from "../../../lib/data";
 import { MdPlayCircleFilled } from "react-icons/md";
 import DashboardCards from "../../../components/Shared/DashboardCards"
 
-const dashboard = () => {
+const page = () => {
 
   return (
     <>
       <div className="flex gap-5 mt-5">
         <div className="flex-[3] flex flex-col gap-5">
-          
           <div className="">
             <DashboardCards  />
           </div>
@@ -23,4 +22,4 @@ const dashboard = () => {
   );
 };
 
-export default dashboard;
+export default page;

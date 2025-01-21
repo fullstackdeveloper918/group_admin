@@ -4,7 +4,6 @@ import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
-import { MdDelete } from "react-icons/md";
 import { FaCheck } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { RiDeleteBin6Line } from "react-icons/ri";
@@ -133,7 +132,7 @@ const page = () => {
         previousLabel={"Previous"}
         nextLabel={"Next"}
         breakLabel={"..."}
-        pageCount={totalPages}
+        pageCount={totalPages || 1}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}

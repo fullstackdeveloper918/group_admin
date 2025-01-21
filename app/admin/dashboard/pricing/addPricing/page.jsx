@@ -181,8 +181,8 @@ const Page = () => {
             className="w-full p-2 border rounded-sm"
           >
             <option value="">Select a collection</option>
-            {cardType.map((item) => (
-              <option value={item.card_type}>{item.card_type}</option>
+            {cardType.map((item,index) => (
+              <option key={index} value={item.card_type}>{item.card_type}</option>
             ))}
           </select>
           {errors.selectedCollection && (

@@ -200,8 +200,8 @@ const Page = () => {
             className="w-full p-2 border rounded-sm"
           >
             <option value="">Select a collection</option>
-            {data && data.map((item) => (
-              <option key={item.uuid} value={item.uuid}>
+            {data && data.map((item,index) => (
+              <option key={item.uuid || index} value={item.uuid}>
                 {item?.collection_title} 
               </option>
             ))}

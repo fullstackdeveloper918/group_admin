@@ -2,20 +2,22 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
-
+ 
   useEffect(() => {
     const fetchData = async () => {
       const token = Cookies.get("token");
       // console.log("token", token);
 
-      // if (!token) {
-      //   console.error("No token found");
-      //   return;
-      // }
+      if (!token) {
+        console.error("No token found");
+        return;
+      }
       try {
         const response = await fetch(
           "https://magshopify.goaideme.com/user/users-list?page=1&limit=10",
@@ -28,6 +30,11 @@ const page = () => {
           }
         );
         const result = await response.json();
+        if (response.status === 401 || result.message === "Unauthorized") {
+          Cookies.remove("token");
+          router.push("/login");
+          return;
+        }
         setData(result);
         // console.log("resultssss",result);
         setCount(result.total);
@@ -37,11 +44,9 @@ const page = () => {
     };
 
     fetchData();
-  }, []);
+  }, [router]);
 
-  if (data.length === 0) {
-    return <h1>Loading...</h1>;
-  }
+  
 
   return (
     <section>

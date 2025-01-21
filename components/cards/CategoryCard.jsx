@@ -73,7 +73,8 @@ const CategoryCard = ({ item }) => {
           <Image
             src={`https://magshopify.goaideme.com/${item?.collection_image[0]}`}
             alt="test"
-            layout="fill"
+            fill
+            sizes="200"
           />
         </div>
       </CardHeader>

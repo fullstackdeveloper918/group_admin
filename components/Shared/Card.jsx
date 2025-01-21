@@ -30,6 +30,7 @@ function Card({ anime, index }) {
           src={`https://shikimori.one${anime?.image?.original}`}
           alt={anime?.name}
           fill
+          sizes="200"
           className="rounded-xl"
         />
       </div>

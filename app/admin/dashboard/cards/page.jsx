@@ -14,9 +14,6 @@ const page = async () => {
 
   const cards = data?.listing
 
-  if (!cards || cards.length === 0) {
-    return <h1>Loading...</h1>;
-  }
 
   return (
     <section
@@ -39,7 +36,7 @@ const page = async () => {
       </div>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
         {cards && cards.map((item,index) => (
-          <Suspense  fallback={<ProductCardSkeleton />}>
+          <Suspense key={item.id || index} fallback={<ProductCardSkeleton />}>
             <ProductCard item={item} />
           </Suspense>
         ))}

@@ -1,6 +1,6 @@
 "use client";
 import { useRouter } from "next/navigation";
-import { FormEvent, useEffect, useState } from "react";
+import { useState } from "react";
 import "./login.css";
 import React from "react";
 import { toast, Toaster } from "react-hot-toast";
@@ -21,9 +21,36 @@ const page = () => {
     return password.length >= 6;
   };
 
-  const submitLogin = async (email, password) => {
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    // debugger
+  
+    setEmailError("");
+    setPasswordError("");
+  
+    const formData = new FormData(event.currentTarget);
+  
+    const email = formData.get("email").trim();
+    const password = formData.get("password").trim();
+  
+    let valid = true;
+  
+    if (!validateEmail(email)) {
+      setEmailError("Please enter a valid email address.");
+      valid = false;
+    }
+  
+    if (!validatePassword(password)) {
+      setPasswordError("Password must be at least 6 characters.");
+      valid = false;
+    }
+  
+    if (!valid) {
+      return; 
+    }
+  
     try {
-      setDisabled(true);
+      setDisabled(true); 
       const response = await fetch(
         "https://magshopify.goaideme.com/auth/login",
         {
@@ -32,54 +59,28 @@ const page = () => {
           body: JSON.stringify({ email, password }),
         }
       );
+  
       const data = await response.json();
-      if (data.token) {
-        Cookies.set("token", data.token);
-      }
-
-      if (response.status === 200) {
-        toast.success("Login Successful");
-        router.push("/admin/dashboard");
+      
+  
+      if (response.status === 200 && data.token) {
+        Cookies.set("token", data.token); 
+        toast.success("Login Successful" , {
+          autoClose: 500,
+        });
+        setTimeout(() => {
+          router.push("/admin/dashboard"); 
+        }, 1000);
       } else {
-        toast.error("Please enter a valid email and password.");
+        toast.error("Invalid email or password.");
       }
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
     } finally {
-      setDisabled(false);
+      setDisabled(false); 
     }
   };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    // Reset error messages
-    setEmailError("");
-    setPasswordError("");
-
-    const formData = new FormData(event.currentTarget);
-
-    const email = formData.get("email").trim();
-    const password = formData.get("password").trim();
-
-    let valid = true;
-
-    if (!validateEmail(email)) {
-      setEmailError("Please enter a valid email address.");
-      valid = false;
-    }
-
-    if (!validatePassword(password)) {
-      setPasswordError("Password must be at least 6 characters.");
-      valid = false;
-    }
-
-    if (!valid) {
-      return;
-    }
-
-    submitLogin(email, password);
-  };
+  
 
   return (
     <>
