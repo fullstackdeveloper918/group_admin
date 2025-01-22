@@ -32,7 +32,7 @@ const page = () => {
         const result = await response.json();
         if (response.status === 401 || result.message === "Unauthorized") {
           Cookies.remove("token");
-          router.push("/login");
+          router.push("/");
           return;
         }
         setData(result);

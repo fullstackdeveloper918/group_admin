@@ -5,12 +5,18 @@ import CategoryCard from '@/components/cards/CategoryCard'
 import CategoryCardSkeleton from '@/components/skeletons/CategoryCardSkeleton'
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 
 const page = async () => {
+
   const data = await fetchData(
     "https://magshopify.goaideme.com/card/collection-listing"
   );
-
+  if (data.status === 401 || data.message === "Unauthorized") {
+    Cookies.remove("token");
+    redirect("/");
+    return;
+  }
   const categories = data?.data
   // console.log('dataaaa')
 

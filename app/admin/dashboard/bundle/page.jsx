@@ -8,8 +8,10 @@ import { FaCheck } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
@@ -29,6 +31,11 @@ const page = () => {
           }
         );
         const result = await response.json();
+        if (response.status === 401 || result.message === "Unauthorized") {
+          Cookies.remove("token");
+          router.push("/");
+          return;
+        }
         setData(result.data || []);
         setTotalPages(Math.ceil(result.totalItems / 10));
       } catch (error) {

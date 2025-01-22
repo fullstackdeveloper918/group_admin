@@ -4,13 +4,18 @@ import Link from 'next/link';
 import { Suspense } from 'react'
 import ProductCard from '@/components/cards/ProductCard'
 import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton'
-
+import { redirect } from "next/navigation";
 
 const page = async () => {
 
   const data = await fetchData( 
     "https://magshopify.goaideme.com/card/card-listing"
   );
+  if (data.status === 401 || data.message === "Unauthorized") {
+    Cookies.remove("token");
+    redirect("/");
+    return;
+  }
 
   const cards = data?.listing
 

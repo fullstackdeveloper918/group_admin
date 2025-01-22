@@ -5,9 +5,10 @@ import React, { useEffect, useState } from 'react'
 import { IoMdAdd } from "react-icons/io";
 import { RiSubtractFill } from "react-icons/ri";
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-
+  const router = useRouter();
     const [data,setData] = useState([]);
     const [activeIndex,setActiveIndex] = useState(null);
 
@@ -23,6 +24,11 @@ const page = () => {
                   },
                 });
                 const result = await response.json();
+                if (response.status === 401 || result.message === "Unauthorized") {
+                  Cookies.remove("token");
+                  router.push("/");
+                  return;
+                }
                 setData(result);
             } catch (error) {
                 console.error("Error Fetch data ",error);

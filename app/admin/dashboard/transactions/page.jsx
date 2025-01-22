@@ -2,9 +2,10 @@
 import React from 'react'
 import { useState,useEffect } from 'react'
 import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 
 const page = () => {
-
+  const router = useRouter();
     const [data,setData] = useState([]);
 
     useEffect(()=>{
@@ -19,6 +20,11 @@ const page = () => {
                   },
                 });
                 const result  = await response.json();
+                if (response.status === 401 || result.message === "Unauthorized") {
+                  Cookies.remove("token");
+                  router.push("/");
+                  return;
+                }
                 setData(result);
             } catch (error) {
                 console.error("Error fetching data", error);

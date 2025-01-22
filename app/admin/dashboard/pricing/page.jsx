@@ -4,8 +4,10 @@ import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { MdStars } from "react-icons/md";
+import { useRouter } from "next/navigation";
 
 const page = () => {
+  const router = useRouter();
   const [data, setData] = useState([]);
   const [card, setCard] = useState("Single Card");
 
@@ -24,6 +26,11 @@ const page = () => {
           }
         );
         const result = await response.json();
+        if (response.status === 401 || result.message === "Unauthorized") {
+          Cookies.remove("token");
+          router.push("/");
+          return;
+        }
         setData(result);
       } catch (error) {
         console.error("Error Fetch Data", error);
