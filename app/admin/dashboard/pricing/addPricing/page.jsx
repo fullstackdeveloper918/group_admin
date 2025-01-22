@@ -5,8 +5,6 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
-import { Card } from "@/components/ui/card";
-import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
 
@@ -78,7 +76,7 @@ const Page = () => {
         );
         const result = await response.json();
         // console.log("result data", result.data);
-
+        // setCardType(result.data?.filter((item)=> !cardType.has(item.card_type)  ));
         setCardType(result.data);
       } catch (error) {
         console.error("Error Fetch Data", error);

@@ -1,8 +1,5 @@
-import Chart from "../../../components/Shared/Chart";
-import Image from "next/image";
+// import Chart from "../../../components/Shared/Chart";
 import React from "react";
-import { rightbarData } from "../../../lib/data";
-import { MdPlayCircleFilled } from "react-icons/md";
 import DashboardCards from "../../../components/Shared/DashboardCards"
 
 const page = () => {
@@ -14,7 +11,7 @@ const page = () => {
           <div className="">
             <DashboardCards  />
           </div>
-          <Chart />
+          {/* <Chart /> */}
         </div>
        
       </div>

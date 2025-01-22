@@ -1,95 +1,69 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DashboardCard from './DashboardCard'
-import Cookies from "js-cookie";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
+
+// import { useRouter } from "next/router";
 const DashboardCards = () => {
   const [countUsers, setCountUsers] = useState(0);
   const [countCards, setCountCards] = useState(0);
   const [countSuccess, setCountSuccess] = useState(0);
 
+  // const router  = useRouter();
   // for users
-  useEffect(() => {
-    const fetchData = async () => {
-      const token = Cookies.get("token"); 
-      try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/user/users-list?page=1&limit=10",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
-        );
-        const result = await response.json();
-        setCountUsers(result.total);
-      } catch (error) {
-        console.error("Error fetching data", error);
-      }
-    };
 
-    fetchData();
-  }, []);
+   useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axiosInstance.get("/user/users-list?page=1&limit=10");
+          setCountUsers(response.data.total);
+        } catch (error) {
+          console.error("Error fetching data:", error);
+        }
+      };
+  
+      fetchData();
+    }, []); 
 
 
   //for cards
+
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("token"); 
       try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/card/card-listing",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
-        );
-        const result = await response.json();
-        const cards = result?.listing
+        const response = await axiosInstance.get("/card/card-listing");
+        const cards = response.data?.listing
         setCountCards(cards.length);
       } catch (error) {
-        console.error("Error fetching data", error);
+        console.error("Error fetching data:", error);
+        
       }
     };
 
     fetchData();
   }, []);
- 
 
-  //for success payment
+ //for success payment
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("token"); 
       try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/razorpay/payment-list",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
+        const response = await axiosInstance.get("/razorpay/payment-list");
+        if(Array.isArray(response.data)){
+          const success = response.data?.filter((item)=> item.payment_status === 'successed')
+          if(success){
+            setCountSuccess(success.length);
           }
-        );
-        const result = await response.json();
-        // console.log("object", result.data)
-
-        const success = result?.data?.filter((item)=> item.payment_status === 'successed')
-        if(success){
-          setCountSuccess(success.length);
         }
         
       } catch (error) {
-        console.error("Error fetching data", error);
+        console.error("Error fetching data:", error);
+        
       }
     };
 
     fetchData();
   }, []);
+
 
   return (
    <div className="flex justify-around items-center">

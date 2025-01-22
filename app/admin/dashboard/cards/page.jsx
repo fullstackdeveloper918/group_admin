@@ -1,23 +1,14 @@
 import { Button } from '@/components/ui/button';
-import { fetchData } from '@/lib/actions';
 import Link from 'next/link';
 import { Suspense } from 'react'
 import ProductCard from '@/components/cards/ProductCard'
 import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton'
-import { redirect } from "next/navigation";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = async () => {
 
-  const data = await fetchData( 
-    "https://magshopify.goaideme.com/card/card-listing"
-  );
-  if (data.status === 401 || data.message === "Unauthorized") {
-    Cookies.remove("token");
-    redirect("/");
-    return;
-  }
-
-  const cards = data?.listing
+  const response = await axiosInstance.get("/card/card-listing");
+  const cards = response.data?.listing;
 
 
   return (
@@ -40,7 +31,7 @@ const page = async () => {
         
       </div>
       <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        {cards && cards.map((item,index) => (
+        {cards && cards?.map((item,index) => (
           <Suspense key={item.id || index} fallback={<ProductCardSkeleton />}>
             <ProductCard item={item} />
           </Suspense>

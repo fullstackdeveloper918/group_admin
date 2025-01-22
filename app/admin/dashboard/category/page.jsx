@@ -1,25 +1,22 @@
 
-import { fetchData } from "@/lib/actions";
 import React, { Suspense } from "react";
 import CategoryCard from '@/components/cards/CategoryCard'
 import CategoryCardSkeleton from '@/components/skeletons/CategoryCardSkeleton'
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { redirect } from "next/navigation";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
+// import { redirect } from "next/navigation";
 
 const page = async () => {
 
-  const data = await fetchData(
-    "https://magshopify.goaideme.com/card/collection-listing"
-  );
-  if (data.status === 401 || data.message === "Unauthorized") {
-    Cookies.remove("token");
-    redirect("/");
-    return;
-  }
-  const categories = data?.data
-  // console.log('dataaaa')
 
+  const response = await axiosInstance.get("/card/collection-listing");
+    const categories = response.data?.data;
+    //  if (response?.status === 401 || response?.data.message === "Unauthorized") {
+    //       Cookies.remove("token"); 
+    //       redirect("/"); 
+    //     } 
+    // console.log("category res", response.data)
   
   return (
     <>

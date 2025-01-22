@@ -21,6 +21,7 @@ const CategoryCard = ({ item }) => {
   // console.log(item,"itemmmmmmmmm")
   // const [isExpanded, setIsExpanded] = useState(false);
   const [isActive, setIsActive] = useState(null);
+  const [isRead, setIsRead] = useState(null);
 
   const handleMouseEnter = (id) => {
     setIsActive(isActive === id ? null : id);
@@ -29,14 +30,14 @@ const CategoryCard = ({ item }) => {
     setIsActive(isActive === id ? null : id);
   };
 
-
+  const handleReadMore = (id) => {
+    setIsRead(isRead === id ? null : id);
+  };
 
   const handleDelete = async (id) => {
     const data = {
       collection_uuid: id,
     };
-
-     
 
     try {
       const confirmDelete = window.confirm(
@@ -85,7 +86,7 @@ const CategoryCard = ({ item }) => {
         <CardDescription
           className="e break-all relative"
           onMouseEnter={() => handleMouseEnter(item.id)}
-          onMouseLeave={()=> handleMouseLeave(item.id)}
+          onMouseLeave={() => handleMouseLeave(item.id)}
         >
           {/* {isActive !== item.id ? <> {item?.collection_description.substring(0,100)}<span onClick={()=>toggleExpand(item?.id)}>...</span></> : item?.collection_description }    */}
           {/* {item?.collection_description} */}
@@ -93,21 +94,27 @@ const CategoryCard = ({ item }) => {
             `${item?.collection_description.substring(0, 70)}...`
           ) : (
             <div className="relative">
-            {item?.collection_description.substring(0, 70)}...
-            <div className="absolute w-full flex flex-col items-center bottom-10 left-1/2 transform -translate-x-1/2 text-center">
-              <div className="z-10 bg-white border border-gray-200 shadow-md p-4 rounded-md">
-                {/* Popover content */}
-                {item?.collection_description.substring(0, 100)}....
-                <br />
-              <span className="text-blue-400 cursor-pointer">Read more</span>
+              {item?.collection_description.substring(0, 70)}...
+              <div className="absolute w-full flex flex-col items-center bottom-10 left-1/2 transform -translate-x-1/2 text-center">
+                <div className="z-10 bg-white border border-gray-200 shadow-md p-4 rounded-md">
+                  {/* Popover content */}
+                  {isRead === item.id
+                    ? `${item?.collection_description.substring(0, 200)}`
+                    : `${item?.collection_description.substring(0, 100)}....`}
+
+                  <br />
+                  <span
+                    className="text-blue-400 cursor-pointer"
+                    onClick={() => handleReadMore(item.id)}
+                  >
+                    Read {isRead ? "less": "more"}
+                  </span>
+                </div>
+                <span className="-mt-[12px] z-20 text-white">
+                  <IoMdArrowDropdown size={30} />
+                </span>
               </div>
-              <span className="-mt-[12px] z-20 text-white">
-                <IoMdArrowDropdown size={30} />
-              </span>
             </div>
-          </div>
-          
-            
           )}
           {/* {item?.collection_description.substring(0, 100)} */}
         </CardDescription>

@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
   const router = useRouter();
@@ -11,43 +12,19 @@ const page = () => {
  
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("token");
-      // console.log("token", token);
-
-      if (!token) {
-        console.error("No token found");
-        return;
-      }
       try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/user/users-list?page=1&limit=10",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
-        );
-        const result = await response.json();
-        if (response.status === 401 || result.message === "Unauthorized") {
-          Cookies.remove("token");
-          router.push("/");
-          return;
-        }
-        setData(result);
-        // console.log("resultssss",result);
-        setCount(result.total);
+        const response = await axiosInstance.get("/user/users-list?page=1&limit=10");
+        setData(response.data);
+        setCount(response.data.total);
       } catch (error) {
-        console.error("Error fetching data", error);
+        console.error("Error fetching data:", error);
       }
     };
 
     fetchData();
   }, [router]);
 
-  
-
+// console.log("expire token", data);
   return (
     <section>
       <div className="flex flex-col space-y-4 my-4 ">

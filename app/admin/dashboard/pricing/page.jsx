@@ -5,6 +5,7 @@ import React, { useEffect, useState } from "react";
 import Cookies from "js-cookie";
 import { MdStars } from "react-icons/md";
 import { useRouter } from "next/navigation";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
   const router = useRouter();
@@ -13,33 +14,16 @@ const page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("token");
       try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/card/pricing-listing",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
-        );
-        const result = await response.json();
-        if (response.status === 401 || result.message === "Unauthorized") {
-          Cookies.remove("token");
-          router.push("/");
-          return;
-        }
-        setData(result);
+        const response = await axiosInstance.get("/card/pricing-listing");
+        setData(response.data);
       } catch (error) {
-        console.error("Error Fetch Data", error);
+        console.error("Error fetching data:", error);
       }
     };
-    fetchData();
-  }, []);
 
-  // console.log(data);
+    fetchData();
+  }, [router]);
 
   const handleClickGroup = () => {
     setCard("Group Card");
@@ -109,7 +93,7 @@ const page = () => {
                       <hr className="border border-2 border-blue-200 w-60 " />
                     </div>
                     {/* <p>{item.benfit_desc}</p> */}
-                    <div>
+                    <div className="mb-12">
                       <ul className="flex flex-col gap-5">
                         {item.benfit_desc &&
                           item.benfit_desc.map((desc, index) => (
@@ -158,7 +142,7 @@ const page = () => {
                       <hr className="border border-2 border-blue-200 w-60" />
                     </div>
                     {/* <p>{item.benfit_desc}</p> */}
-                    <div className="mb-16">
+                    <div className="mb-28">
                       <ul className="flex flex-col gap-5">
                         {item.benfit_desc &&
                           item.benfit_desc.map((desc, index) => (

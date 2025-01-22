@@ -6,36 +6,27 @@ import { IoMdAdd } from "react-icons/io";
 import { RiSubtractFill } from "react-icons/ri";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
   const router = useRouter();
     const [data,setData] = useState([]);
     const [activeIndex,setActiveIndex] = useState(null);
 
-    useEffect(()=>{
-        const fetchData = async()=>{
-          const token = Cookies.get("token");
-            try {
-                const response  = await fetch("https://magshopify.goaideme.com/card/faq-list", {
-                  method: "GET",
-                  headers: {
-                    "Content-Type": "application/json",
-                    Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-                  },
-                });
-                const result = await response.json();
-                if (response.status === 401 || result.message === "Unauthorized") {
-                  Cookies.remove("token");
-                  router.push("/");
-                  return;
-                }
-                setData(result);
-            } catch (error) {
-                console.error("Error Fetch data ",error);
-            }
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axiosInstance.get("/card/faq-list");
+          setData(response.data);
+        } catch (error) {
+          console.error("Error fetching data:", error);
         }
-        fetchData();
-    },[])
+      };
+  
+      fetchData();
+    }, [router]);
+
 
 
     const handleFaq = (index)=>{

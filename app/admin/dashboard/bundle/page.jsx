@@ -9,6 +9,7 @@ import ReactPaginate from "react-paginate";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
   const router = useRouter();
@@ -18,33 +19,20 @@ const page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("token");
       try {
-        const response = await fetch(
-          `https://magshopify.goaideme.com/card/bundle-list-admin?page=${currentPage}&limit=10`,
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
+        const response = await axiosInstance.get(
+          `/card/bundle-list-admin?page=${currentPage}&limit=10`
         );
-        const result = await response.json();
-        if (response.status === 401 || result.message === "Unauthorized") {
-          Cookies.remove("token");
-          router.push("/");
-          return;
-        }
-        setData(result.data || []);
-        setTotalPages(Math.ceil(result.totalItems / 10));
+        setData(response.data || []);
+        setTotalPages(Math.ceil(response.data.totalItems / 10));
       } catch (error) {
-        console.error("Error fetching data", error);
+        console.error("Error fetching data:", error);
       }
     };
-
+  
     fetchData();
   }, [currentPage]);
+  
 
   const handleDelete = async (id) => {
     const uuidData = { bundle_id: id };
@@ -89,7 +77,7 @@ const page = () => {
       </div>
 
       <div className="grid grid-cols-3 gap-4">
-        {data.map((item, index) => (
+        {data?.data?.map((item, index) => (
           <div
             key={index}
             className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4"
