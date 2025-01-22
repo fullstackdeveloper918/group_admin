@@ -5,7 +5,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
-import { IoMdArrowBack } from "react-icons/io";
+// import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from "react-icons/io5";
 import Cookies from "js-cookie";
 
@@ -13,7 +13,6 @@ const Page = () => {
   const router = useRouter();
   const [price, setPrice] = useState(0);
   const [state, setState] = useState();
-  const [desc, setDesc] = useState([]);
   const [values, setValues] = useState({
     number_of_cards: 0,
     discount: 0,

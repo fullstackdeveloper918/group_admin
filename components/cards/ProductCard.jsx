@@ -1,5 +1,5 @@
 "use client";
-import { ShoppingCart } from "lucide-react";
+// import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
