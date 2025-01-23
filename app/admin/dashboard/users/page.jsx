@@ -1,12 +1,11 @@
 "use client";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
  
@@ -22,9 +21,9 @@ const page = () => {
     };
 
     fetchData();
-  }, [router]);
+  }, []);
+  // }, [router]);
 
-// console.log("expire token", data);
   return (
     <section>
       <div className="flex flex-col space-y-4 my-4 ">

@@ -1,15 +1,13 @@
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
-import { Suspense } from 'react'
-import ProductCard from '@/components/cards/ProductCard'
-import ProductCardSkeleton from '@/components/skeletons/ProductCardSkeleton'
+import CardsPagination from '@/components/Shared/CardsPagination'
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = async () => {
 
   const response = await axiosInstance.get("/card/card-listing");
   const cards = response.data?.listing;
-
+  
 
   return (
     <section
@@ -30,13 +28,7 @@ const page = async () => {
         </div>
         
       </div>
-      <div className='grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'>
-        {cards && cards?.map((item,index) => (
-          <Suspense key={item.id || index} fallback={<ProductCardSkeleton />}>
-            <ProductCard item={item} />
-          </Suspense>
-        ))}
-      </div>
+      <CardsPagination cards={cards} />
     </section>
   )
 }

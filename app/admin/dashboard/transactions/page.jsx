@@ -1,12 +1,12 @@
 "use client"
 import React from 'react'
 import { useState,useEffect } from 'react'
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+// import Cookies from "js-cookie";
+// import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
-  const router = useRouter();
+  // const router = useRouter();
     const [data,setData] = useState([]);
 
     useEffect(() => {
@@ -20,8 +20,8 @@ const page = () => {
       };
   
       fetchData();
-    }, [router]);
-    
+    }, []);
+    // }, [router]);
    
 
 

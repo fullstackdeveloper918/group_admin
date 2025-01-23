@@ -2,8 +2,8 @@
 import React, { useEffect, useState } from "react";
 import DashboardCard from './DashboardCard'
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
+// import { useRouter } from "next/navigation";
 
-// import { useRouter } from "next/router";
 const DashboardCards = () => {
   const [countUsers, setCountUsers] = useState(0);
   const [countCards, setCountCards] = useState(0);

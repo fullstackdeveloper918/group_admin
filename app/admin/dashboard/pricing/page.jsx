@@ -2,13 +2,12 @@
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
-import Cookies from "js-cookie";
 import { MdStars } from "react-icons/md";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
-  const router = useRouter();
+  // const router = useRouter();
   const [data, setData] = useState([]);
   const [card, setCard] = useState("Single Card");
 
@@ -23,8 +22,8 @@ const page = () => {
     };
 
     fetchData();
-  }, [router]);
-
+  }, []);
+// }, [router]);
   const handleClickGroup = () => {
     setCard("Group Card");
   };

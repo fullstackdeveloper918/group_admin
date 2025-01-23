@@ -4,12 +4,11 @@ import Link from 'next/link';
 import React, { useEffect, useState } from 'react'
 import { IoMdAdd } from "react-icons/io";
 import { RiSubtractFill } from "react-icons/ri";
-import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
+// import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
-  const router = useRouter();
+  // const router = useRouter();
     const [data,setData] = useState([]);
     const [activeIndex,setActiveIndex] = useState(null);
 
@@ -25,8 +24,8 @@ const page = () => {
       };
   
       fetchData();
-    }, [router]);
-
+    }, []);
+    // }, [router]);
 
 
     const handleFaq = (index)=>{

@@ -8,11 +8,9 @@ import { FaCheck } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import Cookies from "js-cookie";
-import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
-  const router = useRouter();
   const [data, setData] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);

@@ -29,7 +29,6 @@ const page = () => {
     setPasswordError("");
   
     const formData = new FormData(event.currentTarget);
-  
     const email = formData.get("email").trim();
     const password = formData.get("password").trim();
   
@@ -48,7 +47,6 @@ const page = () => {
     if (!valid) {
       return; 
     }
-  
     try {
       setDisabled(true); 
       const response = await fetch(
