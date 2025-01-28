@@ -85,10 +85,10 @@ const page = () => {
               <span className="text-4xl font-semibold">${item.price} </span>
               <br />
               <span className="line-through text-3xl text-[#9f9d9d] ml-2">
-                $ {item.cost_price}
+                ${(item.cost_price).toFixed(2)}
               </span>
               <span className="text-3xl text-grey-700 ml-2">
-                $ {item.sale_price}
+              ${(item.sale_price).toFixed(2)}
               </span>
 
               <span> {item.currency_type}</span>
@@ -131,10 +131,10 @@ const page = () => {
         onPageChange={handlePageClick}
         containerClassName={"pagination flex justify-center space-x-2 mt-4"}
         pageClassName={"page-item"}
-        pageLinkClassName={"page-link px-4 py-2 border rounded"}
-        previousLinkClassName={"prev-link px-4 py-2 border rounded"}
-        nextLinkClassName={"next-link px-4 py-2 border rounded"}
-        activeClassName={"active bg-blue-500 text-white"}
+        pageLinkClassName={"page-link px-4 py-1 border rounded"}
+        previousLinkClassName={"prev-link px-4 py-1 border rounded"}
+        nextLinkClassName={"next-link px-4 py-1 border rounded"}
+        activeClassName={"active bg-blue-500 text-white rounded"}
       />
     </section>
   );

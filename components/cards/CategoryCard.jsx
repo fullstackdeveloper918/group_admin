@@ -18,8 +18,6 @@ import { IoMdArrowDropdown } from "react-icons/io";
 import Cookies from "js-cookie";
 
 const CategoryCard = ({ item }) => {
-  // console.log(item,"itemmmmmmmmm")
-  // const [isExpanded, setIsExpanded] = useState(false);
   const [isActive, setIsActive] = useState(null);
   const [isRead, setIsRead] = useState(null);
 

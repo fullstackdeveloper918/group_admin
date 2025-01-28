@@ -48,8 +48,10 @@ const DashboardCards = () => {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get("/razorpay/payment-list");
-        if(Array.isArray(response.data)){
-          const success = response.data?.filter((item)=> item.payment_status === 'successed')
+        // console.log("responsepayment",response.data.data)
+        if(Array.isArray(response.data.data)){
+          const success = response.data.data?.filter((item)=> item.payment_status === 'captured')
+          console.log("object", success)
           if(success){
             setCountSuccess(success.length);
           }

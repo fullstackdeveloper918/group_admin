@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 // import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 import { toast } from "react-hot-toast";

@@ -13,6 +13,8 @@ import {
   MdHelpCenter,
   MdLogout,
 } from "react-icons/md";
+import { RiDiscountPercentLine } from "react-icons/ri";
+// import { TbDiscountFilled } from "react-icons/tb";
 import { BiSolidCategory } from "react-icons/bi";
 import { PiCardsFill } from "react-icons/pi";
 import { GrBundle } from "react-icons/gr";
@@ -60,6 +62,11 @@ const menuItems = [
         title: "Transactions",
         path: "/admin/dashboard/transactions",
         icon: <FaDollarSign />,
+      },
+      {
+        title: "Discount",
+        path: "/admin/dashboard/discount",
+        icon: <RiDiscountPercentLine size={20} />,
       },
       {
         title: "FAQ",

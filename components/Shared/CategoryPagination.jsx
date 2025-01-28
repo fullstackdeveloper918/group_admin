@@ -44,12 +44,12 @@ const CategoryPagination = ({ categories }) => {
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
         onPageChange={handlePageClick}
-        containerClassName={"pagination flex justify-center space-x-2 mt-4"}
+        containerClassName={"pagination flex justify-center space-x-2 mt-6"}
         pageClassName={"page-item"}
-        pageLinkClassName={"page-link px-4 py-2 border rounded"}
-        previousLinkClassName={"prev-link px-4 py-2 border rounded"}
-        nextLinkClassName={"next-link px-4 py-2 border rounded"}
-        activeClassName={"active bg-blue-500 text-white"}
+        pageLinkClassName={"page-link px-4 py-1 border rounded"}
+        previousLinkClassName={"prev-link px-4 py-1 border rounded"}
+        nextLinkClassName={"next-link px-4 py-1 border rounded"}
+        activeClassName={"active bg-blue-500 text-white rounded"}
       />
     </>
   );

@@ -7,7 +7,7 @@ const page = async () => {
 
   const response = await axiosInstance.get("/card/card-listing");
   const cards = response.data?.listing;
-  
+  // console.log("card",cards)
 
   return (
     <section

@@ -1,30 +1,12 @@
-"use client"
 import React from 'react'
-import { useState,useEffect } from 'react'
-// import Cookies from "js-cookie";
-// import { useRouter } from "next/navigation";
+
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
-const page = () => {
-  // const router = useRouter();
-    const [data,setData] = useState([]);
+const page = async () => {
 
-    useEffect(() => {
-      const fetchData = async () => {
-        try {
-          const response = await axiosInstance.get("/razorpay/payment-list");
-          setData(response.data);
-        } catch (error) {
-          console.error("Error fetching data:", error);
-        }
-      };
-  
-      fetchData();
-    }, []);
-    // }, [router]);
+    const response = await axiosInstance.get("/razorpay/payment-list");
+    const data = response.data;
    
-
-
   return (
     <section className='space-y-8 px-4 sm:px-6 lg:px-8 py-8 md:pt-10 lg:pt-18 sm:pb-28'>
         <div className='flex flex-wrap space-y-4 w-full justify-between '>
@@ -38,14 +20,14 @@ const page = () => {
             <table className='w-full divide-y divide-gray-200 w-100 over'>
                <thead className="bg-gray-50 text-slate-800">
                <tr >
-                <th className='table_heading px-3' >Payment_id</th>
-                <th className='table_heading'>payment Type</th>
-                <th className='table_heading'>User_Name</th>
-                <th className='table_heading'>Currency_Type</th>
-               <th className='table_heading'>Amount</th>
-                <th  className='table_heading'>Payment Status</th>
-                <th className='table_heading'>Email</th>
-                <th className='table_heading'>Contact_Us</th>
+                <th className='table_heading px-3 whitespace-pre' >Payment_id</th>
+                <th className='table_heading whitespace-pre'>Payment Type</th>
+                <th className='table_heading whitespace-pre'>User_Name</th>
+                <th className='table_heading whitespace-pre'>Currency_Type</th>
+               <th className='table_heading whitespace-pre'>Amount</th>
+                <th  className='table_heading whitespace-pre'>Payment Status</th>
+                <th className='table_heading whitespace-pre'>Email</th>
+                <th className='table_heading whitespace-pre'>Contact_Us</th>
                </tr>
                </thead>
             
@@ -56,7 +38,7 @@ const page = () => {
                   <tr className='divide-x divide-gray-200' >
                     <td className='px-4 py-2'>{item.payment_id}</td>
                     <td className='px-4 py-2'>{item.payment_for}</td>
-                    <td className='px-4 py-2'>
+                    <td className='px-4 py-2 whitespace-pre'>
                         {
                             item.userDetail.map((user)=>(
                                 <span key={user.id}>{user.full_name}</span>
