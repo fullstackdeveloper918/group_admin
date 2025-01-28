@@ -63,9 +63,14 @@ const menuItems = [
         path: "/admin/dashboard/transactions",
         icon: <FaDollarSign />,
       },
+      // {
+      //   title: "Discount",
+      //   path: "/admin/dashboard/discount",
+      //   icon: <RiDiscountPercentLine size={20} />,
+      // },
       {
-        title: "Discount",
-        path: "/admin/dashboard/discount",
+        title: "Voucher",
+        path: "/admin/dashboard/voucher",
         icon: <RiDiscountPercentLine size={20} />,
       },
       {

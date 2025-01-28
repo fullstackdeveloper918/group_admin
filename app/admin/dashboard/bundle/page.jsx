@@ -27,20 +27,18 @@ const page = () => {
         console.error("Error fetching data:", error);
       }
     };
-  
+
     fetchData();
   }, [currentPage]);
-  
 
   const handleDelete = async (id) => {
     const uuidData = { bundle_id: id };
-    console.log("uuidData", uuidData)
+    console.log("uuidData", uuidData);
     const token = Cookies.get("token");
     try {
-      const response = await axios.post(
-        "https://magshopify.goaideme.com/card/delete-bundle",
-        uuidData,
-        { headers: { "Content-Type": "application/json", Authorization: `Bearer ${token}` } }
+      const response = await axiosInstance.post(
+        "/card/delete-bundle",
+        uuidData
       );
 
       if (response) {
@@ -81,14 +79,16 @@ const page = () => {
             className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-2xl space-y-4"
           >
             <div className="p-3 text-center rounded-2xl bg-gray-100 relative">
-              <h1 className="text-2xl my-3 font-semibold">{item.number_of_cards} Cards</h1>
+              <h1 className="text-2xl my-3 font-semibold">
+                {item.number_of_cards} Cards
+              </h1>
               <span className="text-4xl font-semibold">${item.price} </span>
               <br />
               <span className="line-through text-3xl text-[#9f9d9d] ml-2">
-                ${(item.cost_price).toFixed(2)}
+                ${item.cost_price.toFixed(2)}
               </span>
               <span className="text-3xl text-grey-700 ml-2">
-              ${(item.sale_price).toFixed(2)}
+                ${item.sale_price.toFixed(2)}
               </span>
 
               <span> {item.currency_type}</span>
@@ -107,7 +107,7 @@ const page = () => {
                   ))}
                 </ul>
               </div>
-              
+
               <button
                 onClick={() => handleDelete(item?.uuid)}
                 className="bg-[#f8dfdf] text-[#f20c0c] py-2 px-3 rounded-sm flex w-full my-3 text-center justify-center mt-6 max-w-[90%] mx-auto hover:bg-[#f20c0c] hover:text-white"

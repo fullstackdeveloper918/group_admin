@@ -1,11 +1,9 @@
 "use client";
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useRouter } from "next/navigation";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
-  const router = useRouter();
   const [data, setData] = useState([]);
   const [count, setCount] = useState(0);
  
@@ -22,7 +20,6 @@ const page = () => {
 
     fetchData();
   }, []);
-  // }, [router]);
 
   return (
     <section>

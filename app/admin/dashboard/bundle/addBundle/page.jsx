@@ -1,13 +1,12 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 // import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from "react-icons/io5";
-import Cookies from "js-cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -62,26 +61,14 @@ const Page = () => {
     setEditingText("");
   };
 
+
   useEffect(() => {
     const fetchPrice = async () => {
-      const token = Cookies.get("token");
       try {
-        const response = await fetch(
-          "https://magshopify.goaideme.com/card/pricing-listing",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
-        );
-        if (!response.ok) {
-          throw new Error("Failed to fetch price");
-        }
-        const result = await response.json();
-        if (Array.isArray(result?.data)) {
-          const prices = result.data.map((res) => {
+        const response = await axiosInstance.get("/card/pricing-listing");
+      
+        if (Array.isArray(response?.data.data)) {
+          const prices = response.data?.data?.map((res) => {
             if (res.card_type === "Single Card") {
               return res?.card_price;
             }
@@ -155,25 +142,14 @@ const Page = () => {
     formData.append("discount", values.discount);
     formData.append("currency_type", values.currency_type);
 
-    const token = Cookies.get("token");
 
     // for (const value of formData.values()) {
     //     console.log(value,"oksdhfkdhfg");
     //   }
 
     try {
-      const response = await axios.post(
-        "https://magshopify.goaideme.com/card/add-card-bundle",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, 
-          },
-        }
-      );
-      // console.log(response);
-
+      const response = await axiosInstance.post("/card/add-card-bundle", formData);
+      
       if (response) {
         toast.success("Card Added successfully");
         router.push("/admin/dashboard/bundle");

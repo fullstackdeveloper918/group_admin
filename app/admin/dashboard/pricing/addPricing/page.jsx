@@ -1,12 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { MdDelete } from "react-icons/md";
 import { IoChevronBackOutline } from "react-icons/io5";
-import Cookies from "js-cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -62,22 +61,10 @@ const Page = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      const token = Cookies.get("token");
       try {
-        const response = await fetch(  
-          "https://magshopify.goaideme.com/card/pricing-listing",
-          {
-            method: "GET",
-            headers: {
-              "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-            },
-          }
-        );
-        const result = await response.json();
-        // console.log("result data", result.data);
-        // setCardType(result.data?.filter((item)=> !cardType.has(item.card_type)  ));
-        setCardType(result.data);
+        const response = await axiosInstance.get("/card/pricing-listing");
+       
+        setCardType(response.data?.data);
       } catch (error) {
         console.error("Error Fetch Data", error);
       }
@@ -111,7 +98,6 @@ const Page = () => {
   };
 
   const handleSubmit = async (e) => {
-    // console.log("handle clicked");
     e.preventDefault();
 
     if (!validateForm()) {
@@ -125,24 +111,8 @@ const Page = () => {
 
     formData.append("benfit_desc", JSON.stringify(benfit_description));
 
-    // for (const value of formData.values()) {
-    //   console.log(value, "oksdhfkdhfg");
-    // }
-    // return     for the stop code
-    // return;
-    const token = Cookies.get("token");
     try {
-      const response = await axios.post(
-        "https://magshopify.goaideme.com/card/add-pricing",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      // console.log("response", response);
+      const response = await axiosInstance.post("/card/add-pricing", formData);
 
       if (response) {
         toast.success("Pricing Card Added successfully");

@@ -1,10 +1,9 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
-import Cookies from "js-cookie";
 
 import { IoChevronBackOutline } from "react-icons/io5";
 
@@ -43,21 +42,9 @@ const Page = () => {
   useEffect(() => {
    
     const fetchData = async () => { 
-      const token = Cookies.get("token");    //get
       try {
-        const response = await fetch("https://magshopify.goaideme.com/card/collection-listing", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-          },
-        });
-        if (!response.ok) {
-          throw new Error("Failed to fetch data");
-        }
-        const result = await response.json(); 
-   
-        setData(result?.data); 
+        const response = await axiosInstance.get("/card/collection-listing"); 
+        setData(response?.data.data); 
       } catch (err) {
         console.log(err)
       } 
@@ -149,18 +136,8 @@ const Page = () => {
     values.collectionImage.forEach((file) => {
       formData.append("files", file);
     });
-    const token = Cookies.get("token"); 
     try {
-      const response = await axios.post(
-        "https://magshopify.goaideme.com/card/add-card",
-        formData,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axiosInstance.post("/card/add-card", formData);
       if (response) {
         toast.success("Card Added successfully");
         router.push('/admin/dashboard/cards')

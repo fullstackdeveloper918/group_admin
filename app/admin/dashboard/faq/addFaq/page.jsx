@@ -1,12 +1,10 @@
 "use client"
 import { Button } from '@/components/ui/button';
-import axios from 'axios';
 import React, { useState } from 'react'
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import toast from 'react-hot-toast';
 import { useRouter } from "next/navigation";
-import { IoMdArrowBack } from "react-icons/io";
 import { IoChevronBackOutline } from 'react-icons/io5';
-import Cookies from "js-cookie";
 
 
 const page = () => {
@@ -51,23 +49,11 @@ const page = () => {
         formData.append("answer", values.answer);
     
     
-        for (const value of formData.values()) {
+        // for (const value of formData.values()) {
             // console.log(value,"oksdhfkdhfg");
-          }
-    // return;
-    const token = Cookies.get("token"); 
+          // }
         try {
-          const response = await axios.post(
-            "https://magshopify.goaideme.com/card/faq",
-            formData,
-            {
-              headers: {
-                "Content-Type": "application/json",
-                Authorization: `Bearer ${token}`,
-              },
-            }
-          );
-          // console.log(response);
+          const response = await axiosInstance.post("/card/faq", formData);
     
           if (response) {
             toast.success("Faq Added successfully");

@@ -1,11 +1,10 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useState } from "react";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { IoChevronBackOutline } from "react-icons/io5";
-import Cookies from "js-cookie";
 
 const Page = () => {
   const router = useRouter();
@@ -58,24 +57,8 @@ const Page = () => {
     formData.append("type", values.type);
     formData.append("value", values.value);
 
-    const token = Cookies.get("token");
-
-    // for (const value of formData.values()) {
-    //     console.log(value,"oksdhfkdhfg");
-    //   }
-
     try {
-      const response = await axios.post(
-        "https://magshopify.goaideme.com/discount/add",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      // console.log(response);
+      const response = await axiosInstance.post("/discount/add", formData);
 
       if (response) {
         toast.success("Discount Added successfully");

@@ -15,6 +15,7 @@ const page = () => {
     const fetchData = async () => {
       try {
         const response = await axiosInstance.get("/card/pricing-listing");
+        // console.log("resprice", response)
         setData(response.data);
       } catch (error) {
         console.error("Error fetching data:", error);
