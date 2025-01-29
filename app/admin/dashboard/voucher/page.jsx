@@ -4,27 +4,11 @@ import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
+
 const page = () => {
   const [vouchers, setVouchers] = useState([]);
-  const [users, setUsers] = useState([]);
   const [error, setError] = useState("");
 
-  // Fetch user list
-  useEffect(() => {
-    const fetchUsers = async () => {
-      try {
-        const response = await axiosInstance.get("/user/users-list?page=1&limit=10");
-        setUsers(response.data.result || []);
-      } catch (error) {
-        console.error("Error fetching users:", error);
-        setError("Failed to fetch user data.");
-      }
-    };
-
-    fetchUsers();
-  }, []);
-
-  // Fetch voucher list
   useEffect(() => {
     const fetchVouchers = async () => {
       try {
@@ -40,11 +24,11 @@ const page = () => {
   }, []);
 
 
-  const getUserName = (user_id) => {
-    console.log("voucer",vouchers)
-    const user = users.find((u) => u.uuid === user_id);
-    console.log("users",user)
-    return user ? user.full_name
+  const getUserName = (uuid) => {
+    // console.log("voucer",vouchers)
+    const user = vouchers.find((u) => u.uuid === uuid);
+    // console.log("users",user)
+    return user.userdetail.length > 0 ? user.userdetail[0].full_name
     : "Unknown User";
   };
 
@@ -81,7 +65,7 @@ const page = () => {
                 <tr key={voucher.id} className="divide-x divide-gray-200">
                   <td className="px-4 py-2">{voucher.discount}</td>
                   <td className="px-4 py-2">{voucher.expiration}</td>
-                  <td className="px-4 py-2">{getUserName(voucher.user_id)}</td>
+                  <td className="px-4 py-2">{getUserName(voucher.uuid)}</td>
                   <td className="px-4 py-2">{voucher.discount_type}</td>
                 </tr>
               ))

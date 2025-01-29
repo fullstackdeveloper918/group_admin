@@ -21,6 +21,7 @@ import { GrBundle } from "react-icons/gr";
 import { ImPriceTags } from "react-icons/im";
 import { FaQuinscape } from "react-icons/fa6";
 import { FaDollarSign } from "react-icons/fa";
+import { MdLocalOffer } from "react-icons/md";
 import Link from "next/link";
 import Cookies from "js-cookie";
 
@@ -72,6 +73,11 @@ const menuItems = [
         title: "Voucher",
         path: "/admin/dashboard/voucher",
         icon: <RiDiscountPercentLine size={20} />,
+      },
+      {
+        title: "Offer",
+        path: "/admin/dashboard/offer",
+        icon: <MdLocalOffer size={20} />,
       },
       {
         title: "FAQ",

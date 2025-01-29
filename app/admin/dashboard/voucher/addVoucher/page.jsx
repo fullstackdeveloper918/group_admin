@@ -8,7 +8,7 @@ import { IoChevronBackOutline } from "react-icons/io5";
 
 const Page = () => {
   const router = useRouter();
-  const [data, setData] = useState([]); 
+  const [data, setData] = useState([]);
   const [values, setValues] = useState({
     discount: 0,
     expiration: "",
@@ -22,11 +22,12 @@ const Page = () => {
     discount_type: "",
   });
 
-
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axiosInstance.get("/user/users-list?page=1&limit=10");
+        const response = await axiosInstance.get(
+          "/user/users-list?page=1&limit=10"
+        );
         // console.log("id",response.data.result)
         setData(response?.data.result);
         // setCountUsers(response.data.total);
@@ -36,7 +37,7 @@ const Page = () => {
     };
 
     fetchData();
-  }, []); 
+  }, []);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -48,10 +49,10 @@ const Page = () => {
 
   const validateForm = () => {
     const newErrors = {
-        discount: values.discount ? "" : "discount is required.",
-        expiration: values.expiration ? "" : "expiration is required.",
-        user_id: values.user_id ? "" : "user_id is required.",
-        discount_type: values.discount_type ? "" : "discount_type is required.",
+      discount: values.discount ? "" : "discount is required.",
+      expiration: values.expiration ? "" : "expiration is required.",
+      user_id: values.user_id ? "" : "user_id is required.",
+      discount_type: values.discount_type ? "" : "discount_type is required.",
     };
     setErrors(newErrors);
     return Object.values(newErrors).every((error) => error === "");
@@ -66,12 +67,26 @@ const Page = () => {
 
     const formData = new FormData();
     formData.append("discount", values.discount);
-    formData.append("expiration", values.expiration);
+
+    const expirationDate = new Date(values.expiration);
+    if (!isNaN(expirationDate.getTime())) {
+      formData.append("expiration", expirationDate.toLocaleDateString("en-GB"));
+    } else {
+      console.error("Invalid date:", values.expiration);
+    }
+   
     formData.append("user_id", values.user_id);
     formData.append("discount_type", values.discount_type);
 
+    formData.forEach((value, key) => {
+      console.log(`${key}: ${value}`);
+    });
+
     try {
-      const response = await axiosInstance.post("/discount/add-voucher", formData);
+      const response = await axiosInstance.post(
+        "/discount/add-voucher",
+        formData
+      );
 
       if (response) {
         toast.success("Voucher Added successfully");
@@ -117,31 +132,37 @@ const Page = () => {
             onChange={handleChange}
             className="w-full p-2 border rounded-sm"
           />
-          {errors.discount && <p className="text-red-500 text-sm">{errors.discount}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="expiration" className="block text-sm font-semibold mb-2">
-          Expiration
-          </label>
-          <input
-            type="text"
-            id="expiration"
-            name="expiration"
-            value={values.expiration || ""}
-            onChange={handleChange}
-            className="w-full p-2 border rounded-sm"
-          />
-          {errors.expiration && (
-            <p className="text-red-500 text-sm">{errors.expiration}</p>
+          {errors.discount && (
+            <p className="text-red-500 text-sm">{errors.discount}</p>
           )}
         </div>
 
         <div>
           <label
-            htmlFor="user_id"
+            htmlFor="expiration"
             className="block text-sm font-semibold mb-2"
           >
+            Expiration
+          </label>
+          <div className="flex gap-1">
+            <div className="">
+              <input
+                type="date"
+                id="expiration"
+                name="expiration"
+                value={values.expiration || ""}
+                onChange={handleChange}
+                className="w-full p-2 border rounded-sm"
+              />
+              {errors.expiration && (
+                <p className="text-red-500 text-sm">{errors.expiration}</p>
+              )}
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <label htmlFor="user_id" className="block text-sm font-semibold mb-2">
             User Id
           </label>
           <select
@@ -154,20 +175,18 @@ const Page = () => {
             }`}
             aria-invalid={!!errors.user_id}
           >
-            <option value="">
-              Select a user name
-            </option>
-            {data && data.map((item,index) => (
-              <option key={item.uuid || index} value={item.uuid}>
-                {item?.full_name} 
-              </option>
-            ))}
+            <option value="">Select a user name</option>
+            {data &&
+              data.map((item, index) => (
+                <option key={item.uuid || index} value={item.uuid}>
+                  {item?.full_name}
+                </option>
+              ))}
           </select>
           {errors.user_id && (
             <p className="text-red-500 text-sm mt-1">{errors.user_id}</p>
           )}
         </div>
-
 
         <div>
           <label
@@ -186,9 +205,7 @@ const Page = () => {
             }`}
             aria-invalid={!!errors.discount_type}
           >
-            <option value="">
-              Select a discount type
-            </option>
+            <option value="">Select a discount type</option>
             <option value="fixed">Fixed</option>
             <option value="percentage">Percentage</option>
           </select>
@@ -196,8 +213,6 @@ const Page = () => {
             <p className="text-red-500 text-sm mt-1">{errors.discount_type}</p>
           )}
         </div>
-
-        
 
         <div className="flex gap-4">
           <Button
