@@ -59,7 +59,7 @@ const page = () => {
               <th className="table_heading">Discount Type</th>
             </tr>
           </thead>
-          <tbody className="bg-white text-slate-800">
+          <tbody className="divide-y divide-gray-200 bg-white text-slate-800">
             {vouchers.length > 0 ? (
               vouchers.map((voucher) => (
                 <tr key={voucher.id} className="divide-x divide-gray-200">
