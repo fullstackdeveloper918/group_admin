@@ -204,7 +204,7 @@ const Page = () => {
             onChange={handlePriceChange}
             className="w-full p-2 border rounded-sm"
           >
-            <option value="">Select a collection</option>
+            <option value="">Select a price</option>
             <option value={state}>{state}</option>
           </select>
           {errors.selectedCollection && (

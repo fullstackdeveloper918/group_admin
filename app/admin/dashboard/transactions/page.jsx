@@ -6,7 +6,7 @@ const page = async () => {
 
     const response = await axiosInstance.get("/razorpay/payment-list");
     const data = response.data;
-   
+    console.log("datatransction", data)
   return (
     <section className='space-y-8 px-4 sm:px-6 lg:px-8 py-8 md:pt-10 lg:pt-18 sm:pb-28'>
         <div className='flex flex-wrap space-y-4 w-full justify-between '>

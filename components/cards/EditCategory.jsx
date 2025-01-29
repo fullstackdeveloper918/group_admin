@@ -1,15 +1,13 @@
 "use client";
 import { Button } from "@/components/ui/button";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import toast from "react-hot-toast";
 import { useRouter, useParams } from "next/navigation";
 import { IoChevronBackOutline } from "react-icons/io5";
-import Cookies from "js-cookie";
 
 const EditCategory = ({ data, querydata }) => {
-  // console.log(querydata,"querydata");
-  // console.log(data,"datatattatat");
+
 
   const router = useRouter();
   const { slug } = useParams();
@@ -52,17 +50,9 @@ const EditCategory = ({ data, querydata }) => {
   }, [CategoryId]);
 
   const fetchCollectionData = async (id) => {
-    const token = Cookies.get("token");
     try {
-      const response = await axios.get(
-        `https://magshopify.goaideme.com/card/collection/${id}`,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`, // Pass the token in the Authorization header
-          },
-        }
-      );
+      const response = await axiosInstance.get(`/card/collection/${id}`);
+     
       const data = response?.data;
       setValues({
         collectionType: data.collection_title,
@@ -103,9 +93,7 @@ const EditCategory = ({ data, querydata }) => {
     }
   };
 
-  // console.log(values,"valuessssss");
 
-  // console.log(imagePreviews,"imagepreviws");
 
   const removeImage = (index) => {
     const updatedImages = [...values.collectionImage];
@@ -122,10 +110,8 @@ const EditCategory = ({ data, querydata }) => {
   };
 
   const UpdateImage = (index) => {
-    // console.log(values.collectionImage, "uuuuuuuuuuuuuuuuuuuu");
     if(Array.isArray(values.collectionImage)){
       const UpdatedImage = values.collectionImage.filter((_, i) => i !== index);
-      // console.log(UpdatedImage, "updataddddddddd");
     }
     setValues((prevValues) => ({
       ...prevValues,
@@ -163,13 +149,6 @@ const EditCategory = ({ data, querydata }) => {
     formData.append("collection_uri", values.collectionUri);
     formData.append("collection_description", values.collectionDescription);
 
-    // if (Array.isArray(values.collectionImage)) {
-    //   values.collectionImage.forEach((file) => {
-    //     formData.append("files", file);
-    //   });
-    // } else {
-    //   console.error("collectionImage is not an array:", values.collectionImage);
-    // }
     const images = Array.isArray(values.collectionImage)
       ? values.collectionImage
       : [values.collectionImage];
@@ -178,31 +157,14 @@ const EditCategory = ({ data, querydata }) => {
       formData.append("files", image);
     });
    
-    const token = Cookies.get("token");
     try {
       let response;
       if (editMode) {
-        response = await axios.post(
-          `https://magshopify.goaideme.com/card/update_collection/${querydata}`,
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        response = await axiosInstance.post(`/card/update_collection/${querydata}`, formData);
+      
       } else {
-        response = await axios.post(
-          "https://magshopify.goaideme.com/card/add-card-collection",
-          formData,
-          {
-            headers: {
-              "Content-Type": "multipart/form-data",
-              Authorization: `Bearer ${token}`,
-            },
-          }
-        );
+        response = await axiosInstance.post("/card/add-card-collection", formData);
+   
       }
 
       if (response) {

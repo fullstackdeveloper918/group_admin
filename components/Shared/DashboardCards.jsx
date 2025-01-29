@@ -51,7 +51,7 @@ const DashboardCards = () => {
         // console.log("responsepayment",response.data.data)
         if(Array.isArray(response.data.data)){
           const success = response.data.data?.filter((item)=> item.payment_status === 'captured')
-          console.log("object", success)
+          // console.log("object", success)
           if(success){
             setCountSuccess(success.length);
           }

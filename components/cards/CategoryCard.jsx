@@ -10,12 +10,11 @@ import {
 } from "../ui/card";
 import { Button } from "../ui/button";
 import { toast } from "react-hot-toast";
-import axios from "axios";
 import { MdEdit } from "react-icons/md";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { useState } from "react";
 import { IoMdArrowDropdown } from "react-icons/io";
-import Cookies from "js-cookie";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const CategoryCard = ({ item }) => {
   const [isActive, setIsActive] = useState(null);
@@ -44,17 +43,8 @@ const CategoryCard = ({ item }) => {
       if (!confirmDelete) {
         return;
       }
-      const token = Cookies.get("token");
-      const response = await axios.post(
-        "https://magshopify.goaideme.com/card/delete-collection",
-        data,
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const response = await axiosInstance.post("/card/delete-collection", data);
+      
       if (response) {
         toast.success("Card deleted successfully");
         window.location.reload();

@@ -5,6 +5,7 @@ import { toast } from "react-hot-toast";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { IoStar,IoStarHalf } from "react-icons/io5";
 import Cookies from "js-cookie";
+import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 // import Link from 'next/link'
 
 // import IconButton from '@/components/ui/IconButton'
@@ -24,25 +25,14 @@ const ProductCard = ({ item }) => {
         return;
       }
       const token = Cookies.get("token");
-      const response = await fetch(
-        `https://magshopify.goaideme.com/card/delete-card`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-          body: JSON.stringify(data),
-        }
-      );
+       const response = await axiosInstance.post("/card/delete-card", data);
+    
 
       if (response) {
-        // console.log("eneterd");
         const data = await response.json();
         toast.success("Collection deleted successfully!");
         window.location.reload();
       } else {
-        // const errorData = await response.json();
         toast.error("Failed to delete collection. Please try again.");
       }
     } catch (error) {

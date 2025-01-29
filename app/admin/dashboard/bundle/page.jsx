@@ -1,13 +1,11 @@
 "use client";
 import { Button } from "@/components/ui/button";
-import axios from "axios";
 import Link from "next/link";
 import React, { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { FaCheck } from "react-icons/fa6";
 import ReactPaginate from "react-paginate";
 import { RiDeleteBin6Line } from "react-icons/ri";
-import Cookies from "js-cookie";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 
 const page = () => {
@@ -15,40 +13,45 @@ const page = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
 
+  const fetchData = async () => {
+    try {
+      const response = await axiosInstance.get(
+        `/card/bundle-list-admin?page=${currentPage}&limit=10`
+      );
+      setData(response.data || []);
+      setTotalPages(Math.ceil(response.data.totalItems / 10));
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axiosInstance.get(
-          `/card/bundle-list-admin?page=${currentPage}&limit=10`
-        );
-        setData(response.data || []);
-        setTotalPages(Math.ceil(response.data.totalItems / 10));
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
     fetchData();
   }, [currentPage]);
 
   const handleDelete = async (id) => {
-    const uuidData = { bundle_id: id };
-    console.log("uuidData", uuidData);
-    const token = Cookies.get("token");
+    
+    let uuidData ={
+      bundle_id:id
+    }
+    
     try {
       const response = await axiosInstance.post(
         "/card/delete-bundle",
         uuidData
       );
-
+      fetchData()
+      
       if (response) {
         toast.success("Card deleted successfully");
-        setData((prev) => prev.filter((item) => item.uuid !== id)); // Remove deleted item locally
+        
+        setData((prev) => (Array.isArray(prev) ? prev.filter((item) => item.uuid !== id)  : []));
+
       }
     } catch (error) {
       console.error("Network error", error);
     }
   };
+
 
   const handlePageClick = (selectedItem) => {
     setCurrentPage(selectedItem.selected + 1);
