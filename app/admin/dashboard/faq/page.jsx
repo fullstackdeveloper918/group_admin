@@ -54,22 +54,22 @@ const page = () => {
     
      {
        data.data && data.data.map((item,index)=>(
-            <div key={index} className="shadow-lg border hover:shadow-2xl duration-300 transition-all rounded-lg px-4 mb-2 ">
-                <div className="flex items-center gap-2">
+            <div key={index} className="shadow-lg border hover:shadow-2xl duration-200 transition-all rounded-lg px-4 mb-2 ">
+                <div className="flex items-center justify-between pt-1">
                 <span>{item.question}</span>
-                <button type="button" className='w-12 h-12' onClick={()=>handleFaq(index)}>
+                <button type="button" className='w-10 h-10' onClick={()=>handleFaq(index)}>
                     {
                         activeIndex === index ? <RiSubtractFill size={20} /> : <IoMdAdd size={20} />
                     }
                 </button>
                 </div>
-                {
-                    activeIndex === index
-                    &&
-                    (<div className='pb-3'>
-                        <span>{item.answer}</span>
-                    </div>)
-                }
+                <div
+                className={`overflow-hidden transition-all duration-700 ease-in-out ${
+                  activeIndex === index ? "max-h-[500px] opacity-100 py-1" : "max-h-0 opacity-0 py-0"
+                }`}
+              >
+                <span className="text-gray-500">{item.answer}</span>
+              </div>
             </div>
         ))
      }
