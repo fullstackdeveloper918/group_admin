@@ -135,7 +135,7 @@ const page = () => {
                     <h1 className="text-2xl">{item.card_type}</h1>
                     <p className="text-3xl text-blue-900 font-semibold">
                       {/* {item.card_price} */}
-                      From $22.45 USD
+                      From {item.card_price} USD
                     </p>
                     <div className="flex gap-4 flex-col">
                       <p className="text-gray-600">{item.card_desc}</p>
