@@ -92,8 +92,14 @@ const Page = () => {
         toast.success("Voucher Added successfully");
         router.push("/admin/dashboard/voucher");
       }
+        
     } catch (error) {
-      console.error("Network error", error);
+      // console.error("Network error", error);
+      if(error.response){
+        toast.error(error.response.data.message);
+      }
+      
+      
     }
   };
 
@@ -153,6 +159,7 @@ const Page = () => {
                 value={values.expiration || ""}
                 onChange={handleChange}
                 className="w-full p-2 border rounded-sm"
+                min={new Date().toISOString().split("T")[0]}
               />
               {errors.expiration && (
                 <p className="text-red-500 text-sm">{errors.expiration}</p>
