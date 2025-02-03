@@ -3,7 +3,8 @@ import React, { useState, useEffect } from "react";
 import { axiosInstance } from "@/lib/axiosRequestInterceptor";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
-import { LuSaveAll } from "react-icons/lu";
+// import { LuSaveAll } from "react-icons/lu";
+import { MdContentCopy } from "react-icons/md";
 import toast from "react-hot-toast";
 
 
@@ -86,7 +87,7 @@ const page = () => {
                   <td className="px-4 py-2">{getUserName(voucher.uuid)}</td>
                   <td className="px-4 py-2">{voucher.discount}</td>
                   <td className="px-4 py-2">{voucher.discount_type}</td>
-                  <td className="px-4 py-2 flex gap-8 items-center"> <span>{voucher.code}</span> <span onClick={()=> handleSave(voucher.id)} className="cursor-pointer"><LuSaveAll /></span> </td>
+                  <td className="px-4 py-2 flex gap-8 items-center"> <span>{voucher.code}</span> <span onClick={()=> handleSave(voucher.id)} className="cursor-pointer"><MdContentCopy /></span> </td>
                   <td className="px-4 py-2">{voucher.expiration}</td>
                 </tr>
               ))
